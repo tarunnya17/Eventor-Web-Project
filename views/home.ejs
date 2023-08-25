@@ -105,7 +105,8 @@
             </li>
             <li>
               <div>
-                <button class="flex items-center p-5 rounded-full border-2 border-purple-600 bg-purple-600 h-6">
+                <button class="flex items-center p-5 rounded-full border-2 border-purple-600 bg-purple-600 h-6"
+                data-modal-target="signup-modal" data-modal-toggle="signup-modal">
                   <span class="text-white">Sign&nbsp;Up</span>
                 </button>
               </div>
@@ -291,7 +292,9 @@
 
 
 
+  <%- include('signup.ejs') %>
   <%- include('login.ejs') %>
+  <%- include('forgetpass.ejs') %>
 
     <div class="flex lg:mt-[800px] mt-[400px] justify-center ">
       <div class="">
