@@ -18,3 +18,9 @@ body {
 .button{
   transition: all 1s ease-out;
 }
+
+#confirm-password:focus{
+  --tw-ring-opacity: 1;
+  --tw-ring-color: rgb(179 98 255 / var(--tw-ring-opacity));
+  border-color: rgb(179 98 255 / var(--tw-ring-opacity));
+}
