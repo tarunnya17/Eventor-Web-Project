@@ -7,9 +7,14 @@ a {
 
 body {
     overflow: scroll;
+    user-select: none;
 }
 
 .scroller {
   overflow-y: scroll;
   scrollbar-width: thin;
+}
+
+.button{
+  transition: all 1s ease-out;
 }
