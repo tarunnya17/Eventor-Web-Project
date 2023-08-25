@@ -11,109 +11,111 @@
   <title>Document</title>
 </head>
 
-<body>
+<body class="w-full overflow-x-hidden">
   <script src="js/app.js"></script>
-  <nav class="bg-transparent dark:bg-gray-900">
-    <div class="max-w-screen-none grid grid-cols-12 items-center justify-evenly mx-auto p-6">
-      <div class="lg:col-span-2 md:col-span-11 col-span-10">
-        <a href="#" class="flex items-center pr-3">
-          <img src="../data/img/eventor-logo.png" class="h-8 lg:h-4 xl:h-10 lg:mr-3 mr-0 object-contain"
-            alt="Eventor Logo" />
-        </a>
-      </div>
-      <div class="flex lg:order-1 lg:col-span-4 md:col-span-1  col-span-2">
-        <button type="button" data-collapse-toggle="navbar-search" aria-controls="navbar-search" aria-expanded="false"
-          class="lg:hidden text-white dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 mr-1">
-          <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-              d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
-          </svg>
-          <span class="sr-only">Search</span>
-        </button>
-        <div class="relative hidden lg:block w-[60%]">
-          <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-            <svg class="w-4 h-4 text-white dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-              fill="none" viewBox="0 0 20 20">
+  
+
+
+  <div id="controls-carousel" class="absolute top-0 w-full" data-carousel="slide">
+    <nav class="bg-transparent absolute w-full dark:bg-gray-900">
+      <div class="max-w-screen-none grid grid-cols-12 items-center justify-evenly mx-auto p-6">
+        <div class="lg:col-span-2 md:col-span-11 col-span-10">
+          <a href="#" class="flex items-center pr-3">
+            <img src="../data/img/eventor-logo.png" class="h-8 lg:h-4 xl:h-10 lg:mr-3 mr-0 object-contain"
+              alt="Eventor Logo" />
+          </a>
+        </div>
+        <div class="flex lg:order-1 lg:col-span-4 md:col-span-1  col-span-2">
+          <button type="button" data-collapse-toggle="navbar-search" aria-controls="navbar-search" aria-expanded="false"
+            class="lg:hidden text-white dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 mr-1">
+            <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
               <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                 d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
             </svg>
-            <span class="sr-only">Search icon</span>
+            <span class="sr-only">Search</span>
+          </button>
+          <div class="relative hidden lg:block w-[60%]">
+            <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+              <svg class="w-4 h-4 text-white dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                fill="none" viewBox="0 0 20 20">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+              </svg>
+              <span class="sr-only">Search icon</span>
+            </div>
+            <input type="text" id="search-navbar"
+              class="block w-full p-5 h-6 pl-10 text-sm text-white focus:text-gray-900 placeholder-white border-2  border-white rounded-full bg-transparent focus:ring-transparent"
+              placeholder="Search...">
           </div>
-          <input type="text" id="search-navbar"
-            class="block w-full p-5 h-6 pl-10 text-sm text-white focus:text-gray-900 placeholder-white border-2  border-white rounded-full bg-transparent focus:ring-transparent"
-            placeholder="Search...">
-        </div>
-        <button data-collapse-toggle="navbar-search" type="button"
-          class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
-          aria-controls="navbar-search" aria-expanded="false">
-          <span class="sr-only">Open main menu</span>
-          <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
-            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-              d="M1 1h15M1 7h15M1 13h15" />
-          </svg>
-        </button>
-      </div>
-      <div
-        class="items-center justify-between hidden w-full lg:flex lg:w-auto lg:order-2 lg:col-span-6 col-span-0 justify-self-end"
-        id="navbar-search">
-        <div class="relative mt-3 lg:hidden">
-          <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-            <svg class="w-4 h-4 text-white dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-              fill="none" viewBox="0 0 20 20">
+          <button data-collapse-toggle="navbar-search" type="button"
+            class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+            aria-controls="navbar-search" aria-expanded="false">
+            <span class="sr-only">Open main menu</span>
+            <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
               <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                d="M1 1h15M1 7h15M1 13h15" />
             </svg>
-          </div>
-          <input type="text" id="search-navbar"
-            class="block w-full p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50"
-            placeholder="Search...">
+          </button>
         </div>
-        <ul
-          class="flex flex-col items-center p-0 lg:m-1  font-medium border border-gray-100 rounded-lg bg-gray-50 lg:flex-row lg:space-x-8  lg:border-0 lg:bg-transparent dark:bg-gray-800 lg:dark:bg-gray-900 dark:border-gray-700">
-          <li>
-            <a href="#"
-              class="block p-10 pl-10 pr-10 text-white hover:text-pink-600 bg-transparent lg:p-0 lg:dark:text-blue-500"
-              aria-current="page">Home</a>
-          </li>
-          <li>
-            <button id="event_button" class="block py-2 pl-3 pr-4 text-white hover:text-pink-600  rounded  lg:hover:bg-transparent  lg:p-0 lg:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent
-               dark:border-gray-700"><span>Event</span></button>
-            <ul class="dropdown-menu absolute hidden" id="event_dropdown">
-              <li class=""><a class="text-white hover:text-pink-400" href="#">Movies</a></li>
-              <li class=""><a class="text-white hover:text-pink-400" href="#">Music</a></li>
-              <li class=""><a class="text-white hover:text-pink-400" href="#">Sports</a></li>
-              <li class=""><a class="text-white hover:text-pink-400" href="#">Dance</a></li>
-              <li class=""><a class="text-white hover:text-pink-400" href="#">Theater</a></li>
-              <li class=""><a class="text-white hover:text-pink-400" href="#">Conference</a></li>
-            </ul>
-          </li>
-          <li>
-            <a href="#"
-              class="block py-2 pl-3 pr-4 text-white hover:text-pink-600  rounded lg:hover:bg-transparent  lg:p-0 dark:text-white lg:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">Contact</a>
-          </li>
-          <li>
-            <div>
-              <button class="flex items-center p-5 rounded-full border-2 border-white h-6">
-                <p class="text-white">Log&nbsp;In</p>
-              </button>
+        <div
+          class="items-center justify-between hidden w-full lg:flex lg:w-auto lg:order-2 lg:col-span-6 col-span-0 justify-self-end"
+          id="navbar-search">
+          <div class="relative mt-3 lg:hidden">
+            <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+              <svg class="w-4 h-4 text-white dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                fill="none" viewBox="0 0 20 20">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+              </svg>
             </div>
-          </li>
-          <li>
-            <div>
-              <button class="flex items-center p-5 rounded-full border-2 border-purple-600 bg-purple-600 h-6">
-                <span class="text-white">Sign&nbsp;Up</span>
-              </button>
-            </div>
-          </li>
-        </ul>
+            <input type="text" id="search-navbar"
+              class="block w-full p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50"
+              placeholder="Search...">
+          </div>
+          <ul
+            class="flex flex-col items-center p-0 lg:m-1  font-medium border border-gray-100 rounded-lg bg-gray-50 lg:flex-row lg:space-x-8  lg:border-0 lg:bg-transparent dark:bg-gray-800 lg:dark:bg-gray-900 dark:border-gray-700">
+            <li>
+              <a href="#"
+                class="block p-10 pl-10 pr-10 text-white hover:text-pink-600 bg-transparent lg:p-0 lg:dark:text-blue-500"
+                aria-current="page">Home</a>
+            </li>
+            <li>
+              <button id="event_button" class="block py-2 pl-3 pr-4 text-white hover:text-pink-600  rounded  lg:hover:bg-transparent  lg:p-0 lg:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent
+                 dark:border-gray-700"><span>Event</span></button>
+              <ul class="dropdown-menu absolute hidden" id="event_dropdown">
+                <li class=""><a class="text-white hover:text-pink-400" href="#">Movies</a></li>
+                <li class=""><a class="text-white hover:text-pink-400" href="#">Music</a></li>
+                <li class=""><a class="text-white hover:text-pink-400" href="#">Sports</a></li>
+                <li class=""><a class="text-white hover:text-pink-400" href="#">Dance</a></li>
+                <li class=""><a class="text-white hover:text-pink-400" href="#">Theater</a></li>
+                <li class=""><a class="text-white hover:text-pink-400" href="#">Conference</a></li>
+              </ul>
+            </li>
+            <li>
+              <a href="#"
+                class="block py-2 pl-3 pr-4 text-white hover:text-pink-600  rounded lg:hover:bg-transparent  lg:p-0 dark:text-white lg:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">Contact</a>
+            </li>
+            <li>
+              <div>
+                <button class="flex items-center p-5 rounded-full border-2 border-white h-6"
+                  data-modal-target="authentication-modal" data-modal-toggle="authentication-modal">
+                  <p class="text-white">Log&nbsp;In</p>
+                </button>
+              </div>
+            </li>
+            <li>
+              <div>
+                <button class="flex items-center p-5 rounded-full border-2 border-purple-600 bg-purple-600 h-6">
+                  <span class="text-white">Sign&nbsp;Up</span>
+                </button>
+              </div>
+            </li>
+          </ul>
+        </div>
       </div>
-    </div>
-  </nav>
-
-
-  <div id="controls-carousel" class="absolute top-0 w-full -z-10" data-carousel="slide">
+    </nav>
     <!-- Carousel wrapper -->
-    <div class="relative h-96 overflow-hidden rounded-none lg:h-[48rem]">
+    <div class="relative h-96 overflow-hidden rounded-none lg:h-[48rem] -z-10">
       <!-- Item 1 -->
       <div class="hidden duration-700 ease-in-out" data-carousel-item="active">
         <div class="min-w-full min-h-full grid grid-cols-2 items-center bg-[rgba(61,34,104,0.65)]">
@@ -180,7 +182,7 @@
             alt="...">
         </div>
       </div>
-      
+
 
       <!-- Item 3 -->
       <div class="hidden duration-700 ease-in-out" data-carousel-item="active">
@@ -258,191 +260,43 @@
 
     </div>
 
+    <!-- Slider controls -->
+    <button type="button"
+      class="absolute top-1/2 left-0 flex items-center justify-center h-fit px-4 cursor-pointer group focus:outline-none"
+      data-carousel-prev>
+      <span
+        class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
+        <svg class="w-4 h-4 text-white dark:text-gray-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+          fill="none" viewBox="0 0 6 10">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M5 1 1 5l4 4" />
+        </svg>
+        <span class="sr-only">Previous</span>
+      </span>
+    </button>
+    <button type="button"
+      class="absolute top-1/2 right-0  flex items-center justify-center h-fit align-middle px-4 cursor-pointer group focus:outline-none"
+      data-carousel-next>
+      <span
+        class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
+        <svg class="w-4 h-4 text-white dark:text-gray-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+          fill="none" viewBox="0 0 6 10">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="m1 9 4-4-4-4" />
+        </svg>
+        <span class="sr-only">Next</span>
+      </span>
+    </button>
   </div>
-  <!-- Slider controls -->
-  <button type="button"
-    class="absolute top-0 left-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
-    data-carousel-prev>
-    <span
-      class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
-      <svg class="w-4 h-4 text-white dark:text-gray-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-        fill="none" viewBox="0 0 6 10">
-        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 1 1 5l4 4" />
-      </svg>
-      <span class="sr-only">Previous</span>
-    </span>
-  </button>
-  <button type="button"
-    class="absolute top-0 right-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
-    data-carousel-next>
-    <span
-      class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
-      <svg class="w-4 h-4 text-white dark:text-gray-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-        fill="none" viewBox="0 0 6 10">
-        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4" />
-      </svg>
-      <span class="sr-only">Next</span>
-    </span>
-  </button>
-  </div>
 
-  <div class="flex lg:mt-[800px] mt-[400px] justify-center ">
-    <div class="">
-      <div>
-        <h1 class="text-4xl font-semibold mb-7 mx-8">Upcoming Events</h1>
-      </div>
 
-      <div class="grid 2xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-10 justify-around relative mx-8">
-        <div class="max-w-sm rounded-xl overflow-visible bg-transparent">
-          <img class="w-full h-52 object-cover rounded-2xl" src="../data/img/upEve1.jpg" alt="Sunset in the mountains">
-          <div class="px-6 py-4 rounded-2xl bg-white cardText grid grid-cols-12">
-            <div class="col-span-2 mr-2">
-              <div class="text-blue-900 text-sm text-center font-semibold">MAY</div>
-              <div class="text-4xl text-center font-bold">17</div>
-            </div>
-            <div class="col-span-10 h-[8rem] overflow-hidden">
-              <div class="font-bold text-lg">BTS will be attending Capacity World in London</div>
-              <div class="text-gray-500">This year’s event promises to be a busy and exciting journey, where we’ll have
-                the chance to exchange knowledge and insights and explore new business prospects. </div>
-            </div>
-          </div>
-        </div>
-        <div class="max-w-sm rounded-xl overflow-visible bg-transparent">
-          <img class="w-full h-52 object-cover rounded-2xl" src="../data/img/upEve1.jpg" alt="Sunset in the mountains">
-          <div class="px-6 py-4 rounded-2xl bg-white cardText grid grid-cols-12">
-            <div class="col-span-2 mr-2">
-              <div class="text-blue-900 text-sm text-center font-semibold">MAY</div>
-              <div class="text-4xl text-center font-bold">17</div>
-            </div>
-            <div class="col-span-10 h-[8rem] overflow-hidden">
-              <div class="font-bold text-lg">BTS will be attending Capacity World in London</div>
-              <div class="text-gray-500">This year’s event promises to be a busy and exciting journey, where we’ll have
-                the chance to exchange knowledge and insights and explore new business prospects. </div>
-            </div>
-          </div>
-        </div>
-        <div class="max-w-sm rounded-xl overflow-visible bg-transparent">
-          <img class="w-full h-52 object-cover rounded-2xl" src="../data/img/upEve1.jpg" alt="Sunset in the mountains">
-          <div class="px-6 py-4 rounded-2xl bg-white cardText grid grid-cols-12">
-            <div class="col-span-2 mr-2">
-              <div class="text-blue-900 text-sm text-center font-semibold">MAY</div>
-              <div class="text-4xl text-center font-bold">17</div>
-            </div>
-            <div class="col-span-10 h-[8rem] overflow-hidden">
-              <div class="font-bold text-lg">BTS will be attending Capacity World in London</div>
-              <div class="text-gray-500">This year’s event promises to be a busy and exciting journey, where we’ll have
-                the chance to exchange knowledge and insights and explore new business prospects. </div>
-            </div>
-          </div>
-        </div>
-        <div class="max-w-sm rounded-xl overflow-visible bg-transparent">
-          <img class="w-full h-52 object-cover rounded-2xl" src="../data/img/upEve1.jpg" alt="Sunset in the mountains">
-          <div class="px-6 py-4 rounded-2xl bg-white cardText grid grid-cols-12">
-            <div class="col-span-2 mr-2">
-              <div class="text-blue-900 text-sm text-center font-semibold">MAY</div>
-              <div class="text-4xl text-center font-bold">17</div>
-            </div>
-            <div class="col-span-10 h-[8rem] overflow-hidden">
-              <div class="font-bold text-lg">BTS will be attending Capacity World in London</div>
-              <div class="text-gray-500">This year’s event promises to be a busy and exciting journey, where we’ll have
-                the chance to exchange knowledge and insights and explore new business prospects. </div>
-            </div>
-          </div>
-        </div>
-        <div class="max-w-sm rounded-xl overflow-visible bg-transparent">
-          <img class="w-full h-52 object-cover rounded-2xl" src="../data/img/upEve1.jpg" alt="Sunset in the mountains">
-          <div class="px-6 py-4 rounded-2xl bg-white cardText grid grid-cols-12">
-            <div class="col-span-2 mr-2">
-              <div class="text-blue-900 text-sm text-center font-semibold">MAY</div>
-              <div class="text-4xl text-center font-bold">17</div>
-            </div>
-            <div class="col-span-10 h-[8rem] overflow-hidden">
-              <div class="font-bold text-lg">BTS will be attending Capacity World in London</div>
-              <div class="text-gray-500">This year’s event promises to be a busy and exciting journey, where we’ll have
-                the chance to exchange knowledge and insights and explore new business prospects. </div>
-            </div>
-          </div>
-        </div>
-        <div class="max-w-sm rounded-xl overflow-visible bg-transparent">
-          <img class="w-full h-52 object-cover rounded-2xl" src="../data/img/upEve1.jpg" alt="Sunset in the mountains">
-          <div class="px-6 py-4 rounded-2xl bg-white cardText grid grid-cols-12">
-            <div class="col-span-2 mr-2">
-              <div class="text-blue-900 text-sm text-center font-semibold">MAY</div>
-              <div class="text-4xl text-center font-bold">17</div>
-            </div>
-            <div class="col-span-10 h-[8rem] overflow-hidden">
-              <div class="font-bold text-lg">BTS will be attending Capacity World in London</div>
-              <div class="text-gray-500">This year’s event promises to be a busy and exciting journey, where we’ll have
-                the chance to exchange knowledge and insights and explore new business prospects. </div>
-            </div>
-          </div>
-        </div>
-        <div class="max-w-sm rounded-xl overflow-visible bg-transparent">
-          <img class="w-full h-52 object-cover rounded-2xl" src="../data/img/upEve1.jpg" alt="Sunset in the mountains">
-          <div class="px-6 py-4 rounded-2xl bg-white cardText grid grid-cols-12">
-            <div class="col-span-2 mr-2">
-              <div class="text-blue-900 text-sm text-center font-semibold">MAY</div>
-              <div class="text-4xl text-center font-bold">17</div>
-            </div>
-            <div class="col-span-10 h-[8rem] overflow-hidden">
-              <div class="font-bold text-lg">BTS will be attending Capacity World in London</div>
-              <div class="text-gray-500">This year’s event promises to be a busy and exciting journey, where we’ll have
-                the chance to exchange knowledge and insights and explore new business prospects. </div>
-            </div>
-          </div>
-        </div>
-        <div class="max-w-sm rounded-xl overflow-visible bg-transparent">
-          <img class="w-full h-52 object-cover rounded-2xl" src="../data/img/upEve1.jpg" alt="Sunset in the mountains">
-          <div class="px-6 py-4 rounded-2xl bg-white cardText grid grid-cols-12">
-            <div class="col-span-2 mr-2">
-              <div class="text-blue-900 text-sm text-center font-semibold">MAY</div>
-              <div class="text-4xl text-center font-bold">17</div>
-            </div>
-            <div class="col-span-10 h-[8rem] overflow-hidden">
-              <div class="font-bold text-lg">BTS will be attending Capacity World in London</div>
-              <div class="text-gray-500">This year’s event promises to be a busy and exciting journey, where we’ll have
-                the chance to exchange knowledge and insights and explore new business prospects. </div>
-            </div>
-          </div>
-        </div>
 
-      </div>
-      <div class="flex justify-center mt-20">
-        <div>
-          <div>
-            <button class="flex items-center p-8 pl-14 pr-14 rounded-full border-2 border-blue-500 h-6">
-              <p class="text-blue-500 text-lg font-bold">Load&nbsp;More</p>
-            </button>
-          </div>
-        </div>
-      </div>
+  <%- include('login.ejs') %>
 
-    </div>
-  </div>
-  <div>
-    <div class="grid grid-cols-1  md:grid-cols-2 w-full mt-[200px] h-[20rem] bg-purple-200">
-      <div class="relative md:visible invisible">
-        <img src="../data/img/home_create_event.png" alt="create your own event"
-          class="h-[500px] absolute bottom-0 object-contain">
-      </div>
-      <div class="pl-0 pt-[2rem] h-full bg-transparent">
-        <div class="md:h-[8rem] ml-8">
-          <div class="font-bold md:text-[2rem] lg:text-[3rem] text-[2rem]">Enlist your own event!</div>
-          <div class="mt-[1rem] text-[1.3rem] text-gray-900">Host your event and get a ticket booking platform with
-            Eventor.<br> We offer 24/7 coverage. </div>
-          <button
-            class="flex-shrink-0 rounded-full font-bold mt-8 mr-3 h-16 text-xl  bg-pink-500 hover:bg-teal-700 border-pink-500 hover:border-teal-700  border-4 text-white py-1 px-5"
-            type="button">
-            Create&nbsp;Event
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <div class="flex justify-center my-32">
+    <div class="flex lg:mt-[800px] mt-[400px] justify-center ">
       <div class="">
         <div>
-          <h1 class="text-4xl text-center font-semibold mb-7 mx-8">Fund Raise</h1>
+          <h1 class="text-4xl font-semibold mb-7 mx-8">Upcoming Events</h1>
         </div>
 
         <div class="grid 2xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-10 justify-around relative mx-8">
@@ -510,90 +364,260 @@
               </div>
             </div>
           </div>
-          
+          <div class="max-w-sm rounded-xl overflow-visible bg-transparent">
+            <img class="w-full h-52 object-cover rounded-2xl" src="../data/img/upEve1.jpg"
+              alt="Sunset in the mountains">
+            <div class="px-6 py-4 rounded-2xl bg-white cardText grid grid-cols-12">
+              <div class="col-span-2 mr-2">
+                <div class="text-blue-900 text-sm text-center font-semibold">MAY</div>
+                <div class="text-4xl text-center font-bold">17</div>
+              </div>
+              <div class="col-span-10 h-[8rem] overflow-hidden">
+                <div class="font-bold text-lg">BTS will be attending Capacity World in London</div>
+                <div class="text-gray-500">This year’s event promises to be a busy and exciting journey, where we’ll
+                  have
+                  the chance to exchange knowledge and insights and explore new business prospects. </div>
+              </div>
+            </div>
+          </div>
+          <div class="max-w-sm rounded-xl overflow-visible bg-transparent">
+            <img class="w-full h-52 object-cover rounded-2xl" src="../data/img/upEve1.jpg"
+              alt="Sunset in the mountains">
+            <div class="px-6 py-4 rounded-2xl bg-white cardText grid grid-cols-12">
+              <div class="col-span-2 mr-2">
+                <div class="text-blue-900 text-sm text-center font-semibold">MAY</div>
+                <div class="text-4xl text-center font-bold">17</div>
+              </div>
+              <div class="col-span-10 h-[8rem] overflow-hidden">
+                <div class="font-bold text-lg">BTS will be attending Capacity World in London</div>
+                <div class="text-gray-500">This year’s event promises to be a busy and exciting journey, where we’ll
+                  have
+                  the chance to exchange knowledge and insights and explore new business prospects. </div>
+              </div>
+            </div>
+          </div>
+          <div class="max-w-sm rounded-xl overflow-visible bg-transparent">
+            <img class="w-full h-52 object-cover rounded-2xl" src="../data/img/upEve1.jpg"
+              alt="Sunset in the mountains">
+            <div class="px-6 py-4 rounded-2xl bg-white cardText grid grid-cols-12">
+              <div class="col-span-2 mr-2">
+                <div class="text-blue-900 text-sm text-center font-semibold">MAY</div>
+                <div class="text-4xl text-center font-bold">17</div>
+              </div>
+              <div class="col-span-10 h-[8rem] overflow-hidden">
+                <div class="font-bold text-lg">BTS will be attending Capacity World in London</div>
+                <div class="text-gray-500">This year’s event promises to be a busy and exciting journey, where we’ll
+                  have
+                  the chance to exchange knowledge and insights and explore new business prospects. </div>
+              </div>
+            </div>
+          </div>
+          <div class="max-w-sm rounded-xl overflow-visible bg-transparent">
+            <img class="w-full h-52 object-cover rounded-2xl" src="../data/img/upEve1.jpg"
+              alt="Sunset in the mountains">
+            <div class="px-6 py-4 rounded-2xl bg-white cardText grid grid-cols-12">
+              <div class="col-span-2 mr-2">
+                <div class="text-blue-900 text-sm text-center font-semibold">MAY</div>
+                <div class="text-4xl text-center font-bold">17</div>
+              </div>
+              <div class="col-span-10 h-[8rem] overflow-hidden">
+                <div class="font-bold text-lg">BTS will be attending Capacity World in London</div>
+                <div class="text-gray-500">This year’s event promises to be a busy and exciting journey, where we’ll
+                  have
+                  the chance to exchange knowledge and insights and explore new business prospects. </div>
+              </div>
+            </div>
+          </div>
 
         </div>
-        
-      </div>
-    </div>
-
-    <footer class="bg-purple-950 block h-[30rem] pt-[5rem]">
-      <div class="grid grid-cols-3 container mx-auto gap-24">
-        <div class="col-span-1">
+        <div class="flex justify-center mt-20">
           <div>
-            <img src="../data/img/eventor-logo.png" class="h-8 lg:h-4 xl:h-10 lg:mr-3 mr-0 object-contain"
-              alt="Eventor Logo" />
-          </div>
-          <div class="mt-6">
-            <span class="text-white text-justify text-lg">
-              Eventor is a global self-service ticketing platform for
-              live experiences that allows anyone to create, share,
-              find and attend events that fuel their passions and
-              enrich their lives.
-            </span>
-            <div class="flex gap-4 mt-6">
-              <div>
-                <img class="w-10 h-10" src="../data/img/Facebook.png" alt="">
-              </div>
-              <div>
-                <img class="w-10 h-10" src="../data/img/Twitter.png" alt="">
-              </div>
-              <div>
-                <img class="w-10 h-10" src="../data/img/Telegram.png" alt="">
-              </div>
-            </div>
-          </div>
-          <div></div>
-        </div>
-        <div class="col-span-1 grid grid-cols-2">
-          <div class="col-span-1 text-white">
             <div>
-              <span class="text-2xl font-bold">Plan Events</span>
-              <ul class="mt-6 text-xl">
-                <li class="mt-2">Create and Set Up</li>
-                <li class="mt-2">Sell Tickets</li>
-                <li class="mt-2">Online RSVP</li>
-                <li class="mt-2">Online Events</li>
-              </ul>
-            </div>
-            <div></div>
-          </div>
-          <div class="col-span-1 text-white">
-            <div>
-              <span class="text-2xl font-bold">Eventor</span>
-              <ul class="mt-6 text-xl">
-                <li class="mt-2">About Us</li>
-                <li class="mt-2">Press</li>
-                <li class="mt-2">Contacts Us</li>
-                <li class="mt-2">Help Center</li>
-                <li class="mt-2">How it Works</li>
-                <li class="mt-2">Privacy</li>
-                <li class="mt-2">Terms</li>
-              </ul>
-            </div>
-            <div></div>
-          </div>
-        </div>
-        <div class="col-span-1 text-white">
-          <span class="text-2xl font-bold block">Stay in the loop</span>
-          <span class="text-white text-justify text-lg block mt-6">
-            Join our mailing list to stay in the loop with our newest for Event and concert
-          </span>
-          <form class="w-full max-w-sm mt-10">
-            <div class="flex items-center bg-white rounded-full py-2 h-16">
-              <input
-                class="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 ml-3 py-1 px-2 leading-tight focus:outline-none"
-                type="text" placeholder="Enter your email address.." aria-label="Full name">
-              <button
-                class="flex-shrink-0 rounded-full mr-5 h-10 bg-pink-500 hover:bg-teal-700 border-pink-500 hover:border-teal-700 text-sm border-4 text-white py-1 px-2 rounded"
-                type="button">
-                Subcribe&nbsp;Now
+              <button class="flex items-center p-8 pl-14 pr-14 rounded-full border-2 border-blue-500 h-6">
+                <p class="text-blue-500 text-lg font-bold">Load&nbsp;More</p>
               </button>
             </div>
-          </form>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div>
+      <div class="grid grid-cols-1  md:grid-cols-2 w-full mt-[200px] h-[20rem] bg-purple-200">
+        <div class="relative md:visible invisible">
+          <img src="../data/img/home_create_event.png" alt="create your own event"
+            class="h-[500px] absolute bottom-0 object-contain">
+        </div>
+        <div class="pl-0 pt-[2rem] h-full bg-transparent">
+          <div class="md:h-[8rem] ml-8">
+            <div class="font-bold md:text-[2rem] lg:text-[3rem] text-[2rem]">Enlist your own event!</div>
+            <div class="mt-[1rem] text-[1.3rem] text-gray-900">Host your event and get a ticket booking platform with
+              Eventor.<br> We offer 24/7 coverage. </div>
+            <button
+              class="flex-shrink-0 rounded-full font-bold mt-8 mr-3 h-16 text-xl  bg-pink-500 hover:bg-teal-700 border-pink-500 hover:border-teal-700  border-4 text-white py-1 px-5"
+              type="button">
+              Create&nbsp;Event
+            </button>
+          </div>
         </div>
       </div>
-    </footer>
+
+      <div class="flex justify-center my-32">
+        <div class="">
+          <div>
+            <h1 class="text-4xl text-center font-semibold mb-7 mx-8">Fund Raise</h1>
+          </div>
+
+          <div
+            class="grid 2xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-10 justify-around relative mx-8">
+            <div class="max-w-sm rounded-xl overflow-visible bg-transparent">
+              <img class="w-full h-52 object-cover rounded-2xl" src="../data/img/upEve1.jpg"
+                alt="Sunset in the mountains">
+              <div class="px-6 py-4 rounded-2xl bg-white cardText grid grid-cols-12">
+                <div class="col-span-2 mr-2">
+                  <div class="text-blue-900 text-sm text-center font-semibold">MAY</div>
+                  <div class="text-4xl text-center font-bold">17</div>
+                </div>
+                <div class="col-span-10 h-[8rem] overflow-hidden">
+                  <div class="font-bold text-lg">BTS will be attending Capacity World in London</div>
+                  <div class="text-gray-500">This year’s event promises to be a busy and exciting journey, where we’ll
+                    have
+                    the chance to exchange knowledge and insights and explore new business prospects. </div>
+                </div>
+              </div>
+            </div>
+            <div class="max-w-sm rounded-xl overflow-visible bg-transparent">
+              <img class="w-full h-52 object-cover rounded-2xl" src="../data/img/upEve1.jpg"
+                alt="Sunset in the mountains">
+              <div class="px-6 py-4 rounded-2xl bg-white cardText grid grid-cols-12">
+                <div class="col-span-2 mr-2">
+                  <div class="text-blue-900 text-sm text-center font-semibold">MAY</div>
+                  <div class="text-4xl text-center font-bold">17</div>
+                </div>
+                <div class="col-span-10 h-[8rem] overflow-hidden">
+                  <div class="font-bold text-lg">BTS will be attending Capacity World in London</div>
+                  <div class="text-gray-500">This year’s event promises to be a busy and exciting journey, where we’ll
+                    have
+                    the chance to exchange knowledge and insights and explore new business prospects. </div>
+                </div>
+              </div>
+            </div>
+            <div class="max-w-sm rounded-xl overflow-visible bg-transparent">
+              <img class="w-full h-52 object-cover rounded-2xl" src="../data/img/upEve1.jpg"
+                alt="Sunset in the mountains">
+              <div class="px-6 py-4 rounded-2xl bg-white cardText grid grid-cols-12">
+                <div class="col-span-2 mr-2">
+                  <div class="text-blue-900 text-sm text-center font-semibold">MAY</div>
+                  <div class="text-4xl text-center font-bold">17</div>
+                </div>
+                <div class="col-span-10 h-[8rem] overflow-hidden">
+                  <div class="font-bold text-lg">BTS will be attending Capacity World in London</div>
+                  <div class="text-gray-500">This year’s event promises to be a busy and exciting journey, where we’ll
+                    have
+                    the chance to exchange knowledge and insights and explore new business prospects. </div>
+                </div>
+              </div>
+            </div>
+            <div class="max-w-sm rounded-xl overflow-visible bg-transparent">
+              <img class="w-full h-52 object-cover rounded-2xl" src="../data/img/upEve1.jpg"
+                alt="Sunset in the mountains">
+              <div class="px-6 py-4 rounded-2xl bg-white cardText grid grid-cols-12">
+                <div class="col-span-2 mr-2">
+                  <div class="text-blue-900 text-sm text-center font-semibold">MAY</div>
+                  <div class="text-4xl text-center font-bold">17</div>
+                </div>
+                <div class="col-span-10 h-[8rem] overflow-hidden">
+                  <div class="font-bold text-lg">BTS will be attending Capacity World in London</div>
+                  <div class="text-gray-500">This year’s event promises to be a busy and exciting journey, where we’ll
+                    have
+                    the chance to exchange knowledge and insights and explore new business prospects. </div>
+                </div>
+              </div>
+            </div>
+
+
+          </div>
+
+        </div>
+      </div>
+
+      <footer class="bg-purple-950 block h-[30rem] pt-[5rem]">
+        <div class="grid grid-cols-3 container mx-auto gap-24">
+          <div class="col-span-1">
+            <div>
+              <img src="../data/img/eventor-logo.png" class="h-8 lg:h-4 xl:h-10 lg:mr-3 mr-0 object-contain"
+                alt="Eventor Logo" />
+            </div>
+            <div class="mt-6">
+              <span class="text-white text-justify text-lg">
+                Eventor is a global self-service ticketing platform for
+                live experiences that allows anyone to create, share,
+                find and attend events that fuel their passions and
+                enrich their lives.
+              </span>
+              <div class="flex gap-4 mt-6">
+                <div>
+                  <img class="w-10 h-10" src="../data/img/Facebook.png" alt="">
+                </div>
+                <div>
+                  <img class="w-10 h-10" src="../data/img/Twitter.png" alt="">
+                </div>
+                <div>
+                  <img class="w-10 h-10" src="../data/img/Telegram.png" alt="">
+                </div>
+              </div>
+            </div>
+            <div></div>
+          </div>
+          <div class="col-span-1 grid grid-cols-2">
+            <div class="col-span-1 text-white">
+              <div>
+                <span class="text-2xl font-bold">Plan Events</span>
+                <ul class="mt-6 text-xl">
+                  <li class="mt-2">Create and Set Up</li>
+                  <li class="mt-2">Sell Tickets</li>
+                  <li class="mt-2">Online RSVP</li>
+                  <li class="mt-2">Online Events</li>
+                </ul>
+              </div>
+              <div></div>
+            </div>
+            <div class="col-span-1 text-white">
+              <div>
+                <span class="text-2xl font-bold">Eventor</span>
+                <ul class="mt-6 text-xl">
+                  <li class="mt-2">About Us</li>
+                  <li class="mt-2">Press</li>
+                  <li class="mt-2">Contacts Us</li>
+                  <li class="mt-2">Help Center</li>
+                  <li class="mt-2">How it Works</li>
+                  <li class="mt-2">Privacy</li>
+                  <li class="mt-2">Terms</li>
+                </ul>
+              </div>
+              <div></div>
+            </div>
+          </div>
+          <div class="col-span-1 text-white">
+            <span class="text-2xl font-bold block">Stay in the loop</span>
+            <span class="text-white text-justify text-lg block mt-6">
+              Join our mailing list to stay in the loop with our newest for Event and concert
+            </span>
+            <form class="w-full max-w-sm mt-10">
+              <div class="flex items-center bg-white rounded-full py-2 h-16">
+                <input
+                  class="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 ml-3 py-1 px-2 leading-tight focus:outline-none"
+                  type="text" placeholder="Enter your email address.." aria-label="Full name">
+                <button
+                  class="flex-shrink-0 rounded-full mr-5 h-10 bg-pink-500 hover:bg-teal-700 border-pink-500 hover:border-teal-700 text-sm border-4 text-white py-1 px-2 rounded"
+                  type="button">
+                  Subcribe&nbsp;Now
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </footer>
 
 </body>
 
