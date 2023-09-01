@@ -14,7 +14,7 @@
                 <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
                     Create an account
                 </h1>
-                <form class="space-y-4 md:space-y-6" action="/sign-up" method="post">
+                <form class="space-y-4 md:space-y-6" id="signup_form">
                     <div>
                         <label for="fullname" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your
                             full name</label>
@@ -57,7 +57,7 @@
                                     href="#">Terms and Conditions</a></label>
                         </div>
                     </div>
-                    <button type="submit"
+                    <button id="signup_button" type="submit"
                         class="w-full text-white bg-[#b362ff] hover:bg-[#9333ea] focus:ring-4 focus:outline-none focus:ring-[#b362ff] font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Create
                         an account</button>
                     <p class="text-sm font-light text-gray-500 dark:text-gray-400">

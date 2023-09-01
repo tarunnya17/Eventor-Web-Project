@@ -10,6 +10,7 @@
     "firebase": "^10.3.0",
     "firebase-admin": "^11.10.1",
     "flowbite": "^1.8.1",
+    "mongoose": "^7.5.0",
     "nodemon": "^3.0.1"
   },
   "name": "eventor-web-project",
