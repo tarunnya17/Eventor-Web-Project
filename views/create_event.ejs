@@ -12,6 +12,7 @@
 </head>
 
 <body>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script> -->
     <section class="bg-[url('/data/img/createEventBG.jpg')] bg-cover">
         <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto lg:py-0">
             <a href="#" class="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white mt-8">
@@ -25,12 +26,12 @@
                         class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
                         Create an event
                     </h1>
-                    <form class="space-y-4 md:space-y-6" action="#">
+                    <form class="space-y-4 md:space-y-6" action="/create-event" id="event-form" method="post" enctype="multipart/form-data">
                         <div>
-                            <label for="countries"
+                            <label for="event_type"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Event Type</label>
-                            <select id="countries"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            <select id="event_type" name="event_type" 
+                                class="bg-gray-50 border  border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                 <option selected>Choose an option</option>
                                 <option value="movie">Movie</option>
                                 <option value="music">Music</option>
@@ -44,7 +45,7 @@
                             <label for="event-title"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Title of the
                                 event</label>
-                            <input type="text" id="event-title" placeholder="e.g. Talking Titans"
+                            <input type="text" id="event-title" name="event-title" placeholder="e.g. Talking Titans"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                         </div>
                         <div class="grid grid-cols-2 gap-6">
@@ -83,21 +84,21 @@
                             <label for="venue"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Venue of the
                                 Event</label>
-                            <input type="text" id="venue" placeholder="enter the location"
+                            <input type="text" id="venue" name="venue" placeholder="enter the location"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                         </div>
                         <div>
                             <label for="contactmail"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Contact
                                 Email</label>
-                            <input type="email" id="contactmail" placeholder="example@gmail.com"
+                            <input type="email" id="contactmail" name="contactmail" placeholder="example@gmail.com"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                         </div>
                         <div>
                             <label for="payment"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Payment
                                 Description</label>
-                            <input type="text" id="payment" placeholder="bank account details"
+                            <input type="text" id="payment" name="payment" placeholder="bank account details"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                         </div>
                         <div class="grid grid-cols-2 gap-6">
@@ -106,36 +107,36 @@
                                 <label for="contactphone"
                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Contact Phone
                                     Number</label>
-                                <input type="tel" id="contactphone" placeholder="+8801234567898"
+                                <input type="tel" name="contactphone" id="contactphone" placeholder="+8801234567898"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                             </div>
                             <div>
                                 <label for="ticket price"
                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Ticket
                                     Price</label>
-                                <input type="number" id="ticket price" placeholder="000"
+                                <input type="number" id="ticket price" name="ticket price" placeholder="000"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                             </div>
                         </div>
                         <div>
 
                             <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                                for="file_input">Upload Banner Image</label>
+                                for="banner_input">Upload Banner Image</label>
                             <input
                                 class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                                id="file_input" type="file">
+                                id="banner_input" name="bannerinput" type="file">
 
                         </div>
                         <div>
 
                             <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                                for="file_input">Upload Poster Image</label>
+                                for="poster_input">Upload Poster Image</label>
                             <input
                                 class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                                id="file_input" type="file">
+                                id="poster_input" name="posterinput" type="file">
 
                         </div>
-                        <div>
+                        <!-- <div>
 
                             <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white required"
                                 for="file_input">Upload Logo</label>
@@ -143,12 +144,12 @@
                                 class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
                                 id="file_input" type="file">
 
-                        </div>
+                        </div> -->
                         <div>
 
                             <label for="description"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Event Description</label>
-                            <textarea id="description" rows="4"
+                            <textarea id="description" name="description" rows="4"
                                 class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 placeholder="Write the deatils of your event..."></textarea>
 
@@ -157,7 +158,7 @@
 
                             <label for="additionalinfo"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Additional Information</label>
-                            <textarea id="additionalinfo" rows="2"
+                            <textarea id="additionalinfo" name="additionalinfo" rows="2"
                                 class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 placeholder="e.g. dress code, parking etc."></textarea>
 

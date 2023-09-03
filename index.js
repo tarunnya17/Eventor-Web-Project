@@ -1,12 +1,19 @@
+if (process.env.NODE_ENV !== "production") {
+    require("dotenv").config()
+}
 //Initialization
 const express = require("express");
 const path = require('path');
 const bodyParser = require('body-parser');
 const app = express();
 const mongoose = require('mongoose');
+const multer = require('multer');
+const {storage} = require("./cloudy")
 
+const upload = multer({ storage });
+const uploadLocal = multer({ dest: './public/data/uploads/' })
 //Mongoose Init
-const uri = "mongodb+srv://admin0:11223344@cluster0.vqytmj4.mongodb.net/?retryWrites=true&w=majority";
+const uri = process.env.ATLAS_URI;
 mongoose.connect(uri)
 .then(()=> {
     console.log("Connected")
@@ -49,6 +56,18 @@ app.get('/', (req, res) => {
 
 app.get('/create-event', (req, res)=> {
     res.render("create_event");
+})
+
+app.post('/create-event', upload.any() ,(req, res)=> {
+    try {
+        console.log(req.body);
+        console.log(req.files)
+        res.render('create_event')
+        // Your code here
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("Error uploading files.");
+    }
 })
 
 app.post('/signup', (req,res)=> {

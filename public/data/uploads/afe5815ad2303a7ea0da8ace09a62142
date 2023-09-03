@@ -1,0 +1,51 @@
+const express = require('express');
+const app = express();
+const path = require('path');
+const fs = require('fs');
+const { Dropbox } = require('dropbox');
+const multer = require('multer');
+
+const APP_KEY = 'tt7n8q99zcymacn';
+const APP_SECRET = '4yvkbt06m4b1av5';
+const REDIRECT_URI = 'http://localhost:3000/callback';
+
+const dropbox = new Dropbox({ accessToken: 'sl.BlXYsygq5R4KaGp9i0Pa3isYwIZlm8AWqGmetqpw9uXWhTSmwQ0bYMXk5D7YwqtXAnxq6DZuacLrM7U-kBJms47WN36CuoOH5GdNWBL5wtJlPJFx8bE0bBLm6QnIji0Wulf9IZhGlrjIAX8' });
+
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
+
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.urlencoded({ extended: true }));
+
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
+
+app.post('/upload', upload.single('file'), (req, res) => {
+  const uploadedFile = req.file;
+
+  if (!uploadedFile) {
+    return res.status(400).send('No file uploaded.');
+  }
+  const fileName = uploadedFile.originalname;
+
+  dropbox.filesUpload({ path: '/' + fileName, contents: uploadedFile.buffer })
+  .then((response) => {
+      // Get the shared link for the uploaded file
+    return dropbox.sharingCreateSharedLink({ path: '/' + fileName });
+  })
+  .then((sharedLinkResponse) => {
+    const fileLink = sharedLinkResponse.result.url;
+    console.log('File uploaded successfully. Link:', fileLink);
+    res.send('File uploaded successfully! Link: ' + fileLink);
+  })
+  .catch((error) => {
+    console.error(error);
+    res.status(500).send('Error uploading the file to Dropbox.');
+  });
+});
+
+
+app.listen(3000, () => {
+  console.log('Server is running on http://localhost:3000');
+});
