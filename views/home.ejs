@@ -305,7 +305,7 @@
 
         <div class="grid 2xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-10 justify-around relative mx-8">
           <div class="max-w-sm rounded-xl overflow-visible bg-transparent">
-            <img class="w-full h-52 object-cover rounded-2xl" src="../data/img/upEve1.jpg"
+            <img class="w-full h-52 object-cover rounded-2xl" src=<%= dataEvent[3].banner_image.url %>
               alt="Sunset in the mountains">
             <div class="px-6 py-4 rounded-2xl bg-white cardText grid grid-cols-12">
               <div class="col-span-2 mr-2">
@@ -313,10 +313,8 @@
                 <div class="text-4xl text-center font-bold">17</div>
               </div>
               <div class="col-span-10 h-[8rem] overflow-hidden">
-                <div class="font-bold text-lg">BTS will be attending Capacity World in London</div>
-                <div class="text-gray-500">This year’s event promises to be a busy and exciting journey, where we’ll
-                  have
-                  the chance to exchange knowledge and insights and explore new business prospects. </div>
+                <div class="font-bold text-lg"><%= dataEvent[3].event_title %></div>
+                <div class="text-gray-500"><%= dataEvent[3].description %></div>
               </div>
             </div>
           </div>

@@ -14,7 +14,7 @@ const upload = multer({ storage });
 const uploadLocal = multer({ dest: './public/data/uploads/' })
 //Mongoose Init
 const uri = process.env.ATLAS_URI;
-mongoose.connect(uri)
+mongoose.connect(uri, {useNewUrlParser: true, useUnifiedTopology: true})
 .then(()=> {
     console.log("Connected")
 })
@@ -63,6 +63,7 @@ const Event = mongoose.model('EventInfo', eventSchema);
 
 
 
+
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
@@ -72,15 +73,25 @@ app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 
-app.get('/', (req, res) => {
-    res.render('home');
+app.get('/', async (req, res) => {
+    try {
+        const dataEvent = await Event.find({});
+        console.log(dataEvent[3].banner_image.url);
+
+        res.render('home', { dataEvent });
+
+    } catch {
+        (er) => {
+            console.log(er);
+        }
+    }
 });
 
 app.get('/create-event', (req, res)=> {
     res.render("create_event");
 })
 
-app.post('/create-event', upload.any() , async (req, res)=> {
+app.post('/create-event', upload.any() ,(req, res)=> {
     try {
         console.log(req.body);
         console.log(req.files);
@@ -104,13 +115,13 @@ app.post('/create-event', upload.any() , async (req, res)=> {
           description: req.body.description,
           additionalinfo: req.body.additionalinfo};
 
-        await console.log(eventData);
+        console.log(eventData);
         const newEvent = new Event(eventData);
-        await newEvent.save()
+        newEvent.save()
         .then(() => {
             console.log("Event Saved!")
         });
-        await res.render('create_event')
+        res.render('create_event')
     } 
     catch (error) {
         console.error(error);
