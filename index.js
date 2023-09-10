@@ -75,7 +75,7 @@ const eventSchema = new mongoose.Schema({
 // Create the UsersInfo model
 const UsersInfo = mongoose.model('UsersInfo', usersInfoSchema);
 const waitEvent = mongoose.model('WaitEventInfo', eventSchema);
-const Event = mongoose.model('WaitEventInfo', eventSchema);
+const Event = mongoose.model('EventInfo', eventSchema);
 
 
 
