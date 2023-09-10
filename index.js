@@ -14,11 +14,20 @@ const { adminApp, orgApp } = require("./fireAdmin")
 
 const upload = multer({ storage });
 const uploadLocal = multer({ dest: './public/data/uploads/' })
+
+
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
+
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static("node_modules"));
+app.use(express.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 //Mongoose Init
 const uri = process.env.ATLAS_URI;
 mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => {
-        console.log("Connected")
+        console.log("Connected to mongodb")
     })
 
 //Mogoose Scemas
@@ -65,19 +74,11 @@ const eventSchema = new mongoose.Schema({
 
 // Create the UsersInfo model
 const UsersInfo = mongoose.model('UsersInfo', usersInfoSchema);
-const Event = mongoose.model('WaitingEventInfo', eventSchema);
+const waitEvent = mongoose.model('WaitEventInfo', eventSchema);
+const Event = mongoose.model('WaitEventInfo', eventSchema);
 
 
 
-
-
-app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, 'views'));
-
-app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.static("node_modules"));
-app.use(express.urlencoded({ extended: true }));
-app.use(bodyParser.json());
 
 
 app.get('/', async (req, res) => {
@@ -106,8 +107,18 @@ app.get('/dashboard', (req, res) => {
     res.render("admin/dashboard");
 })
 
-app.get('/approve_event', (req, res) => {
-    res.render("admin/approve_event");
+app.get('/approve_event', async (req, res) => {
+    try {
+        const waitEventData = await waitEvent.find({});
+        console.log(waitEventData);
+
+        res.render("admin/approve_event", {waitEventData});
+
+    } catch {
+        (er) => {
+            console.log(er);
+        }
+    }
 })
 
 app.get('/manage_event', (req, res) => {
@@ -145,7 +156,7 @@ app.post('/create-event', upload.any(), (req, res) => {
         };
 
         console.log(eventData);
-        const newEvent = new Event(eventData);
+        const newEvent = new waitEvent(eventData);
         newEvent.save()
             .then(() => {
                 console.log("Event Saved!")
@@ -169,9 +180,10 @@ app.post('/signup', (req, res) => {
     console.log(name);
 })
 
-app.use(() => {
-    console.log("We have a request")
-})
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).send('Something broke!');
+  });
 
 app.listen(3000, () => {
     console.log("Listening on port 3000")
