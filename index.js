@@ -211,8 +211,29 @@ app.post('/admin/manage_event/delete', async (req, res)=> {
     }
 })
 
-app.get('/users', (req, res) => {
-    res.render("admin/users");
+app.post('/admin/users/delete', async (req, res)=> {
+    try{
+        id = req.body.uid.trim();
+        await UsersInfo.findOneAndDelete({uid: id});
+        res.redirect('/users');
+    }
+    catch {
+
+    }
+})
+
+app.get('/users', async (req, res) => {
+    try {
+        const userData = await UsersInfo.find({});
+        console.log(userData);
+        res.render("admin/users", {userData});
+    }
+    catch {
+        (er) => {
+            console.log(er);
+        }
+    }
+    
 })
 
 app.post('/create-event', upload.any(), (req, res) => {
