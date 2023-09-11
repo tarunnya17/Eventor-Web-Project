@@ -15,7 +15,7 @@
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <script src="js/app.js"></script>
   
-
+  <% var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]; %>
 
   <div id="controls-carousel" class="absolute top-0 w-full" data-carousel="slide">
     <nav class="bg-transparent absolute w-full dark:bg-gray-900">
@@ -304,132 +304,31 @@
         </div>
 
         <div class="grid 2xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-10 justify-around relative mx-8">
+          <% for(var i = 0; i < EventData.length; i++) {%> 
+            <% var date = new Date(EventData[i].startdate) %> 
+            <% var month = date.getMonth() %> 
+            <% var day = date.getDate() %> 
+            <% var title = EventData[i].event_title %> 
+            <% var description = EventData[i].description %> 
+            <% var location = EventData[i].venue %> 
+            <% var banner_image = EventData[i].banner_image.url %>
+            <% var price = EventData[i].ticket_price %> 
+            <% var id = EventData[i]._id %> 
           <div class="max-w-sm rounded-xl overflow-visible bg-transparent">
-            <img class="w-full h-52 object-cover rounded-2xl" src=<%= dataEvent[3].banner_image.url %>
-              alt="Sunset in the mountains">
+            <img class="w-full h-52 object-cover rounded-2xl" src="<%= banner_image %> "
+        alt="">
             <div class="px-6 py-4 rounded-2xl bg-white cardText grid grid-cols-12">
               <div class="col-span-2 mr-2">
-                <div class="text-blue-900 text-sm text-center font-semibold">MAY</div>
-                <div class="text-4xl text-center font-bold">17</div>
+                <div class="text-blue-900 text-sm text-center font-semibold"><%= monthNames[month] %> </div>
+                <div class="text-4xl text-center font-bold"><%= day  %> </div>
               </div>
               <div class="col-span-10 h-[8rem] overflow-hidden">
-                <div class="font-bold text-lg"><%= dataEvent[3].event_title %></div>
-                <div class="text-gray-500"><%= dataEvent[3].description %></div>
+                <div class="font-bold text-lg"><%= title %></div>
+                <div class="text-gray-500"> <%= description %>  </div>
               </div>
             </div>
           </div>
-          <div class="max-w-sm rounded-xl overflow-visible bg-transparent">
-            <img class="w-full h-52 object-cover rounded-2xl" src="../data/img/upEve1.jpg"
-              alt="Sunset in the mountains">
-            <div class="px-6 py-4 rounded-2xl bg-white cardText grid grid-cols-12">
-              <div class="col-span-2 mr-2">
-                <div class="text-blue-900 text-sm text-center font-semibold">MAY</div>
-                <div class="text-4xl text-center font-bold">17</div>
-              </div>
-              <div class="col-span-10 h-[8rem] overflow-hidden">
-                <div class="font-bold text-lg">BTS will be attending Capacity World in London</div>
-                <div class="text-gray-500">This year’s event promises to be a busy and exciting journey, where we’ll
-                  have
-                  the chance to exchange knowledge and insights and explore new business prospects. </div>
-              </div>
-            </div>
-          </div>
-          <div class="max-w-sm rounded-xl overflow-visible bg-transparent">
-            <img class="w-full h-52 object-cover rounded-2xl" src="../data/img/upEve1.jpg"
-              alt="Sunset in the mountains">
-            <div class="px-6 py-4 rounded-2xl bg-white cardText grid grid-cols-12">
-              <div class="col-span-2 mr-2">
-                <div class="text-blue-900 text-sm text-center font-semibold">MAY</div>
-                <div class="text-4xl text-center font-bold">17</div>
-              </div>
-              <div class="col-span-10 h-[8rem] overflow-hidden">
-                <div class="font-bold text-lg">BTS will be attending Capacity World in London</div>
-                <div class="text-gray-500">This year’s event promises to be a busy and exciting journey, where we’ll
-                  have
-                  the chance to exchange knowledge and insights and explore new business prospects. </div>
-              </div>
-            </div>
-          </div>
-          <div class="max-w-sm rounded-xl overflow-visible bg-transparent">
-            <img class="w-full h-52 object-cover rounded-2xl" src="../data/img/upEve1.jpg"
-              alt="Sunset in the mountains">
-            <div class="px-6 py-4 rounded-2xl bg-white cardText grid grid-cols-12">
-              <div class="col-span-2 mr-2">
-                <div class="text-blue-900 text-sm text-center font-semibold">MAY</div>
-                <div class="text-4xl text-center font-bold">17</div>
-              </div>
-              <div class="col-span-10 h-[8rem] overflow-hidden">
-                <div class="font-bold text-lg">BTS will be attending Capacity World in London</div>
-                <div class="text-gray-500">This year’s event promises to be a busy and exciting journey, where we’ll
-                  have
-                  the chance to exchange knowledge and insights and explore new business prospects. </div>
-              </div>
-            </div>
-          </div>
-          <div class="max-w-sm rounded-xl overflow-visible bg-transparent">
-            <img class="w-full h-52 object-cover rounded-2xl" src="../data/img/upEve1.jpg"
-              alt="Sunset in the mountains">
-            <div class="px-6 py-4 rounded-2xl bg-white cardText grid grid-cols-12">
-              <div class="col-span-2 mr-2">
-                <div class="text-blue-900 text-sm text-center font-semibold">MAY</div>
-                <div class="text-4xl text-center font-bold">17</div>
-              </div>
-              <div class="col-span-10 h-[8rem] overflow-hidden">
-                <div class="font-bold text-lg">BTS will be attending Capacity World in London</div>
-                <div class="text-gray-500">This year’s event promises to be a busy and exciting journey, where we’ll
-                  have
-                  the chance to exchange knowledge and insights and explore new business prospects. </div>
-              </div>
-            </div>
-          </div>
-          <div class="max-w-sm rounded-xl overflow-visible bg-transparent">
-            <img class="w-full h-52 object-cover rounded-2xl" src="../data/img/upEve1.jpg"
-              alt="Sunset in the mountains">
-            <div class="px-6 py-4 rounded-2xl bg-white cardText grid grid-cols-12">
-              <div class="col-span-2 mr-2">
-                <div class="text-blue-900 text-sm text-center font-semibold">MAY</div>
-                <div class="text-4xl text-center font-bold">17</div>
-              </div>
-              <div class="col-span-10 h-[8rem] overflow-hidden">
-                <div class="font-bold text-lg">BTS will be attending Capacity World in London</div>
-                <div class="text-gray-500">This year’s event promises to be a busy and exciting journey, where we’ll
-                  have
-                  the chance to exchange knowledge and insights and explore new business prospects. </div>
-              </div>
-            </div>
-          </div>
-          <div class="max-w-sm rounded-xl overflow-visible bg-transparent">
-            <img class="w-full h-52 object-cover rounded-2xl" src="../data/img/upEve1.jpg"
-              alt="Sunset in the mountains">
-            <div class="px-6 py-4 rounded-2xl bg-white cardText grid grid-cols-12">
-              <div class="col-span-2 mr-2">
-                <div class="text-blue-900 text-sm text-center font-semibold">MAY</div>
-                <div class="text-4xl text-center font-bold">17</div>
-              </div>
-              <div class="col-span-10 h-[8rem] overflow-hidden">
-                <div class="font-bold text-lg">BTS will be attending Capacity World in London</div>
-                <div class="text-gray-500">This year’s event promises to be a busy and exciting journey, where we’ll
-                  have
-                  the chance to exchange knowledge and insights and explore new business prospects. </div>
-              </div>
-            </div>
-          </div>
-          <div class="max-w-sm rounded-xl overflow-visible bg-transparent">
-            <img class="w-full h-52 object-cover rounded-2xl" src="../data/img/upEve1.jpg"
-              alt="Sunset in the mountains">
-            <div class="px-6 py-4 rounded-2xl bg-white cardText grid grid-cols-12">
-              <div class="col-span-2 mr-2">
-                <div class="text-blue-900 text-sm text-center font-semibold">MAY</div>
-                <div class="text-4xl text-center font-bold">17</div>
-              </div>
-              <div class="col-span-10 h-[8rem] overflow-hidden">
-                <div class="font-bold text-lg">BTS will be attending Capacity World in London</div>
-                <div class="text-gray-500">This year’s event promises to be a busy and exciting journey, where we’ll
-                  have
-                  the chance to exchange knowledge and insights and explore new business prospects. </div>
-              </div>
-            </div>
-          </div>
+          <% }%> 
 
         </div>
         <div class="flex justify-center mt-20">

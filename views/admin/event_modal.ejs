@@ -23,13 +23,11 @@
             <p class="text-2xl mt-5"><%= description %> </p>
             <p><%= price %> </p> 
          </div>
-         <form action="/admin/approve_event" method="post" class="col-span-2">
+         <div></div>
+         <form action="/admin/manage_event/delete" method="post" class="col-span-2">
             <input type="hidden" name="eventId" value="<%= id %>">
-            <button type="submit" class="w-full text-white bg-[#b362ff] hover:bg-[#9333ea] focus:ring-4 focus:outline-none focus:ring-[#b362ff] text-xl font-bold rounded-lg px-4 py-4 mb-10  text-center"> Approve </button>
+            <button type="submit" class="w-full text-white bg-[#ff3434] hover:bg-[#ab1c1c] focus:ring-4 focus:outline-none focus:ring-[#b362ff] text-xl font-bold rounded-lg px-4 py-4 mb-10  text-center"> Delete Event </button>
          </form>
-         <form action="/admin/deny_event" method="post" class="col-span-2">
-            <input type="hidden" name="eventId" value="<%= id %>">
-            <button type="submit" class="w-full text-white bg-[#b362ff] hover:bg-[#9333ea] focus:ring-4 focus:outline-none focus:ring-[#b362ff] text-xl font-bold rounded-lg px-4 py-4 mb-10 text-center">Deny</button>
-         </form>
+         
       </div>   
    </div>

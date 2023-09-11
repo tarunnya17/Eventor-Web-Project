@@ -76,6 +76,7 @@ const eventSchema = new mongoose.Schema({
 const UsersInfo = mongoose.model('UsersInfo', usersInfoSchema);
 const waitEvent = mongoose.model('WaitEventInfo', eventSchema);
 const Event = mongoose.model('EventInfo', eventSchema);
+const binEvent = mongoose.model('deletedEventInfo', eventSchema);
 
 
 
@@ -83,10 +84,11 @@ const Event = mongoose.model('EventInfo', eventSchema);
 
 app.get('/', async (req, res) => {
     try {
-        const dataEvent = await Event.find({});
-        console.log(dataEvent[3].banner_image.url);
+        const EventData = await Event.find({});
+        // console.log(dataEvent[3].banner_image.url);
+        //console.log(EventData)
 
-        res.render('home', { dataEvent });
+        res.render('home', { EventData });
 
     } catch {
         (er) => {
@@ -167,8 +169,46 @@ app.post('/admin/approve_event', async (req, res)=> {
     }
 })
 
-app.get('/manage_event', (req, res) => {
-    res.render("admin/manage_event");
+app.get('/manage_event', async (req, res) => {
+    try {
+        const EventData = await Event.find({});
+        //console.log(EventData);
+
+        res.render("admin/manage_event", {EventData});
+
+    } catch {
+        (er) => {
+            console.log(er);
+        }
+    }
+})
+
+app.post('/admin/manage_event/delete', async (req, res)=> {
+    try{
+        const id = req.body.eventId.trim();
+        console.log(id.length);
+        objectId = new mongoose.Types.ObjectId(id);
+        console.log(objectId);
+        const data = await Event.findOne({_id:objectId},{_id: false });
+        //console.log(data);
+        //const newEvent = new Event(data);
+        try{
+            binEvent.insertMany([data])
+        }
+        catch {
+            (er) => {
+                console.log(er);
+            }
+        }
+        await Event.findOneAndRemove({_id:objectId},{_id: false });
+        // newEvent.save()
+        res.redirect('/manage_event');
+    }
+    catch {
+        (er) => {
+            console.log(er);
+        }
+    }
 })
 
 app.get('/users', (req, res) => {
