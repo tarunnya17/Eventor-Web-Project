@@ -1,0 +1,36 @@
+
+   <div class="grid justify-center grid-cols-1 mt-16">
+      <div class="grid  grid-cols-4 gap-4 mx-32">
+         <div class="col-span-4 w-full h-[32rem]">
+            <img src="<%= banner_image %> " alt="" class="h-full w-full object-cover object-center">
+         </div>
+         <div class="col-span-4 bg-[#D8D7FC] mt-10 p-5">
+            <p class="text-4xl font-bold"><%= title %> </p>
+            <p class="text-2xl text-gray-500">
+               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 mb-1 inline">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
+                </svg>
+               <span><%= location %> </span>                
+            </p>
+            <p class="text-2xl">
+               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 mb-1 inline">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5m-9-6h.008v.008H12v-.008zM12 15h.008v.008H12V15zm0 2.25h.008v.008H12v-.008zM9.75 15h.008v.008H9.75V15zm0 2.25h.008v.008H9.75v-.008zM7.5 15h.008v.008H7.5V15zm0 2.25h.008v.008H7.5v-.008zm6.75-4.5h.008v.008h-.008v-.008zm0 2.25h.008v.008h-.008V15zm0 2.25h.008v.008h-.008v-.008zm2.25-4.5h.008v.008H16.5v-.008zm0 2.25h.008v.008H16.5V15z" />
+                </svg>
+                
+               <span><%= date %> </span>
+            </p>
+            <p class="text-2xl mt-5"><%= description %> </p>
+            <p><%= price %> </p> 
+         </div>
+         <form action="/org-manage_event-modify" method="post" class="col-span-2">
+            <input type="hidden" name="eventId" value="<%= id %>">
+            <button type="submit" class="w-full text-white bg-[#b44cff] hover:bg-[#9914ba] focus:ring-4 focus:outline-none focus:ring-[#b362ff] text-xl font-bold rounded-lg px-4 py-4 mb-10  text-center"> Modify </button>
+         </form>
+         <form action="/admin/manage_event/delete" method="post" class="col-span-2">
+            <input type="hidden" name="eventId" value="<%= id %>">
+            <button type="submit" class="w-full text-white bg-[#ff3434] hover:bg-[#ab1c1c] focus:ring-4 focus:outline-none focus:ring-[#b362ff] text-xl font-bold rounded-lg px-4 py-4 mb-10  text-center"> Delete Event </button>
+         </form>
+         
+      </div>   
+   </div>

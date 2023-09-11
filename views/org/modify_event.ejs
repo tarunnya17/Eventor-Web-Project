@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/flowbite.css">
+    <link rel="stylesheet" href="css/output.css">
+    <link rel="stylesheet" href="css/main.css">
+    <script src="js/flowbite.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+
+    <% var startdate = new Date(EventData.startdate) %> 
+     <% var smonth = startdate.getMonth().toLocaleString('en-US', { minimumIntegerDigits: 2,useGrouping: false}) %> 
+     <% var sday = startdate.getDate().toLocaleString('en-US', {minimumIntegerDigits: 2,useGrouping: false}) %> 
+     <% var syear = startdate.getFullYear() %> 
+     <% var enddate = new Date(EventData.enddate) %> 
+     <% var emonth = enddate.getMonth().toLocaleString('en-US', { minimumIntegerDigits: 2,useGrouping: false}) %> 
+     <% var eday = enddate.getDate().toLocaleString('en-US', {minimumIntegerDigits: 2,useGrouping: false}) %> 
+     <% var eyear = enddate.getFullYear() %> 
+     <% var title = EventData.event_title %> 
+     <% var type = EventData.event_type %> 
+     <% var description = EventData.description %> 
+     <% var location = EventData.venue %> 
+     <% var banner_image = EventData.banner_image.url %>
+     <% var price = EventData.ticket_price %> 
+     <% var id = EventData._id %> 
+     <% var contactmail = EventData.contactmail %> 
+     <% var payment = EventData.payment %> 
+    <!-- <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script> -->
+    <section class="bg-[url('/data/img/createEventBG.jpg')] bg-cover">
+        <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto lg:py-0">
+            <a href="#" class="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white mt-8">
+                <img class=" w-[20rem] mr-2" src="data/img/eventor-logo.png"
+                    alt="logo">
+            </a>
+            <div
+                class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-4xl xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+                <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
+                    <h1
+                        class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+                        Modify Event
+                    </h1>
+                    <form class="space-y-4 md:space-y-6" action="/org-modify-event-update" id="event-form" method="post" enctype="application/x-www-form-urlencoded">
+                        <div>
+                            <label for="event_type"
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Event Type</label>
+                            <select id="event_type" name="event_type" 
+                                class="bg-gray-50 border  border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                <option>Choose an option</option>
+                                <option value="movie" <% if (type === 'movie') { %>
+                                 <%= 'selected' %> 
+                                <% } %>>Movie</option>
+                                <option value="music"<% if (type === 'music') { %>
+                                    <%= 'selected' %> 
+                                   <% } %>>Music</option>
+                                <option value="sport"<% if (type === 'sport') { %>
+                                    <%= 'selected' %> 
+                                   <% } %>>Sports</option>
+                                <option value="dance"<% if (type === 'dance') { %>
+                                    <%= 'selected' %> 
+                                   <% } %>>Dance</option>
+                                <option value="theater"<% if (type === 'theater') { %>
+                                    <%= 'selected' %> 
+                                   <% } %>>Theater</option>
+                                <option value="conference"<% if (type === 'conference') { %>
+                                    <%= 'selected' %> 
+                                   <% } %>>Conference</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="event_title"
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Title of the
+                                event</label>
+                            <input value="<%= title  %> " type="text" id="event_title" name="event_title" placeholder="e.g. Talking Titans"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        </div>
+                        <div class="grid grid-cols-2 gap-6">
+                            <div>
+                                <label for="startdate"
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Start
+                                    Date</label>
+                                <input value="<%= syear %>-<%= smonth %>-<%= sday %>" type="date" name="startdate" id="startdate"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            </div>
+                            <div>
+                                <label for="enddate"
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">End
+                                    Date</label>
+                                <input value="<%= eyear %>-<%= emonth %>-<%= eday %>" type="date" name="enddate" id="enddate"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-2 gap-6">
+                            <div>
+                                <label for="starttime"
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Start
+                                    Time</label>
+                                <input value="<%= EventData.starttime %>" type="time" name="starttime" id="starttime"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            </div>
+                            <div>
+                                <label for="endtime"
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">End
+                                    Time</label>
+                                <input value="<%= EventData.endtime %>" type="time" name="endtime" id="endtime"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            </div>
+                        </div>
+                        <div>
+                            <label for="venue"
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Venue of the
+                                Event</label>
+                            <input value="<%= location %> " type="text" id="venue" name="venue" placeholder="enter the location"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        </div>
+                        <div>
+                            <label for="contactmail"
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Contact
+                                Email</label>
+                            <input value="<%= contactmail %> " type="email" id="contactmail" name="contactmail" placeholder="example@gmail.com"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        </div>
+                        <div>
+                            <label for="payment"
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Payment
+                                Description</label>
+                            <input value='<%= payment %>' type="text" id="payment" name="payment" placeholder="bank account details"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        </div>
+                        <div class="grid grid-cols-2 gap-6">
+
+                            <div>
+                                <label for="contactphone"
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Contact Phone
+                                    Number</label>
+                                <input value="<%= EventData.contactphone %> " type="tel" name="contactphone" id="contactphone" placeholder="+8801234567898"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            </div>
+                            <div>
+                                <label for="ticket_price"
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Ticket
+                                    Price</label>
+                                <input value='<%= EventData.ticket_price %>' type="number" id="ticket_price" name="ticket_price" placeholder="000"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            </div>
+                        </div>
+                        <!-- <div>
+
+                            <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                for="banner_input">Upload Banner Image</label>
+                            <input
+                                class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                                id="banner_input" name="bannerinput" type="file">
+
+                        </div>
+                        <div>
+
+                            <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                for="poster_input">Upload Poster Image</label>
+                            <input
+                                class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                                id="poster_input" name="posterinput" type="file">
+
+                        </div> -->
+                        <!-- <div>
+
+                            <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white required"
+                                for="file_input">Upload Logo</label>
+                            <input
+                                class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                                id="file_input" type="file">
+
+                        </div> -->
+                        <div>
+
+                            <label for="description"
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Event Description</label>
+                            <textarea  id="description" name="description" rows="4"
+                                class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                placeholder="Write the deatils of your event..."><%= EventData.description %> </textarea>
+
+                        </div>
+                        <div>
+
+                            <label for="additionalinfo"
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Additional Information</label>
+                            <textarea id="additionalinfo" name="additionalinfo" rows="2"
+                                class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                placeholder="e.g. dress code, parking etc."> <%= EventData.additionalinfo %> </textarea>
+
+                        </div>
+                        <div class="flex items-start">
+                            <div class="flex items-center h-5">
+                                <input id="terms" aria-describedby="terms" type="checkbox"
+                                    class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800"
+                                    required="">
+                            </div>
+                            <div class="ml-3 text-sm">
+                                <label for="terms" class="font-light text-gray-700 dark:text-gray-300">I accept the <a
+                                        class="font-medium text-primary-800 hover:underline dark:text-primary-500"
+                                        href="#">Terms and Conditions</a></label>
+                            </div>
+                        </div>
+                        <input type="hidden" name="id" value="<%=EventData._id%>">
+                        <button type="submit"
+                            class="w-full text-white bg-[#b362ff] hover:bg-[#9333ea] focus:ring-4 focus:outline-none focus:ring-[#b362ff] text-xl font-bold rounded-lg text-sm px-5 py-2.5 text-center">Modify Event</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>

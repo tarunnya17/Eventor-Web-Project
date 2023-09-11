@@ -266,6 +266,99 @@ app.post('/signup', (req, res) => {
     console.log(name);
 })
 
+
+//Organizers Routs:
+
+app.get('/org-dashboard', (req, res) => {
+    res.render("org/dashboard");
+})
+
+app.get('/org-manage_event', async (req, res) => {
+    try {
+        const EventData = await Event.find({uid: 'a100'});
+        //console.log(EventData);
+
+        res.render("org/manage_event", {EventData});
+
+    } catch {
+        (er) => {
+            console.log(er);
+        }
+    }
+})
+
+app.post('/org-manage_event-modify', async(req, res) => {
+    try{
+        const id = req.body.eventId.trim();
+        console.log(id.length);
+        objectId = new mongoose.Types.ObjectId(id);
+        console.log(objectId);
+        const EventData = await Event.findById(objectId);
+        //res.redirect('/approve_event');
+        res.render("org/modify_event", {EventData});
+        console.log(EventData)
+    }
+    catch {
+        (er) => {
+            console.log(er);
+        }
+    }
+    //res.render("org/modify_event");
+})
+
+app.post('/org-modify-event-update', async (req, res)=>{
+    const {
+        event_type,
+        event_title,
+        startdate,
+        enddate,
+        starttime,
+        endtime,
+        venue,
+        contactmail,
+        payment,
+        contactphone,
+        ticket_price,
+        description,
+        additionalinfo,
+        id,
+      } = req.body;
+      
+    const ObjID = new mongoose.Types.ObjectId(id.trim());
+    const updateOperation = {
+    $set: {
+        
+        event_type: event_type,
+        event_title: event_title ,
+        startdate: startdate,
+        enddate: enddate,
+        starttime: starttime,
+        endtime: endtime,
+        venue: venue,
+        contactmail: contactmail,
+        payment: payment,
+        contactphone: contactphone,
+        ticket_price: ticket_price,
+        description: description,
+        additionalinfo: additionalinfo
+    },
+    };
+    try {
+        // Update the document with the specified ObjectId
+        const result = await Event.updateOne({ _id: ObjID }, updateOperation);
+        res.redirect('/org-manage_event')
+        // Check the result
+        if (result.modifiedCount === 1) {
+          console.log('Document updated successfully.');
+        } else {
+          console.log('Document not found or not updated.');
+        }
+      } catch (err) {
+        console.error('Error updating document:', err);
+      } 
+})
+
+
 app.use((err, req, res, next) => {
     console.error(err.stack);
     res.status(500).send('Something broke!');
