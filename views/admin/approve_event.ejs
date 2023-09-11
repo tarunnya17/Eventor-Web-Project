@@ -45,6 +45,7 @@
     <% var location = waitEventData[i].venue %> 
     <% var banner_image = waitEventData[i].banner_image.url %>
     <% var price = waitEventData[i].ticket_price %> 
+    <% var id = waitEventData[i]._id %> 
    
    <div class="max-w-sm rounded-xl overflow-visible bg-transparent">
      <img class="w-full h-52 object-cover rounded-2xl" src="<%= banner_image %> "
@@ -65,7 +66,7 @@
       <div id="defaultModal-<%= i %>" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
         <div class="relative w-full max-w-6xl bg-white">
             <!-- Modal content -->
-            <%- include('wait_event_modal.ejs', {title, description, location, date, banner_image, price }) %> 
+            <%- include('wait_event_modal.ejs', {title, description, location, date, banner_image, price, id}) %> 
         </div>
     </div>
      </div>

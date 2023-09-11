@@ -110,11 +110,57 @@ app.get('/dashboard', (req, res) => {
 app.get('/approve_event', async (req, res) => {
     try {
         const waitEventData = await waitEvent.find({});
-        console.log(waitEventData);
+        //console.log(waitEventData);
 
         res.render("admin/approve_event", {waitEventData});
 
     } catch {
+        (er) => {
+            console.log(er);
+        }
+    }
+})
+
+app.post('/admin/deny_event', async (req, res)=> {
+    try{
+        const id = req.body.eventId.trim();
+        console.log(id.length);
+        objectId = new mongoose.Types.ObjectId(id);
+        console.log(objectId);
+        const data = await waitEvent.findByIdAndDelete(objectId);
+        res.redirect('/approve_event');
+        console.log(data)
+    }
+    catch {
+        (er) => {
+            console.log(er);
+        }
+    }
+})
+
+app.post('/admin/approve_event', async (req, res)=> {
+    try{
+        const id = req.body.eventId.trim();
+        console.log(id.length);
+        objectId = new mongoose.Types.ObjectId(id);
+        console.log(objectId);
+        const data = await waitEvent.findOne({_id:objectId},{_id: false });
+        //console.log(data);
+        //const newEvent = new Event(data);
+        try{
+            Event.insertMany([data])
+
+        }
+        catch {
+            (er) => {
+                console.log(er);
+            }
+        }
+        await waitEvent.findOneAndRemove({_id:objectId},{_id: false });
+        // newEvent.save()
+        res.redirect('/approve_event');
+    }
+    catch {
         (er) => {
             console.log(er);
         }
