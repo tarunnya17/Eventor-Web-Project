@@ -35,12 +35,18 @@
 
 <div class="p-6 sm:ml-64">
    <div class="grid grid-cols-5 gap-5">
-      <div class="bg-slate-50 h-44 rounded-lg shadow-md grid grid-cols-3 justify-items-center pl-3 pt-3">
-         <div class="col-span-3">Ticket Name</div>
-         <div>Premium</div><div>500</div><div>50</div>
-         <div>Special</div><div>200</div><div>50</div>
-         <div>Regular</div><div>100</div><div>50</div>
-      </div>
+      <% for( let i = 0; i < TicketData.length; i++ ) { %>
+         <% const {title, types} = TicketData[i] %> 
+         <div class="bg-slate-50 h-44 rounded-lg shadow-md grid grid-cols-3 justify-items-center pl-3 pt-3">
+            <div class="col-span-3"><%= title%></div>
+            <% for( let j = 0; j < types.length; j++ ) { %>
+               <%const {catagory, price, capacity} = types[j]%>
+               <div><%= catagory%></div><div><%= price%></div><div><%= capacity%></div>
+            <% } %>
+            
+         </div>
+      <% } %>
+      
       <button data-modal-target="createTicketModal" data-modal-toggle="createTicketModal" id="create-ticket" class="text-gray-700 hover:text-gray-800 bg-slate-50 hover:bg-slate-100 h-44 w-full rounded-lg shadow-md flex justify-center items-center">
          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-14 h-14">
             <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />

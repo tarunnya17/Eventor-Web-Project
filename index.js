@@ -71,12 +71,24 @@ const eventSchema = new mongoose.Schema({
     additionalinfo: String,
 });
 
+const ticketScema = new mongoose.Schema({
+    title: String,
+    types: [{
+        catagory: String,
+        price: Number,
+        capacity: Number,
+        remainingCapacity: Number,
+    }],
+    uid: String
+});
+
 
 // Create the UsersInfo model
 const UsersInfo = mongoose.model('UsersInfo', usersInfoSchema);
 const waitEvent = mongoose.model('WaitEventInfo', eventSchema);
 const Event = mongoose.model('EventInfo', eventSchema);
 const binEvent = mongoose.model('deletedEventInfo', eventSchema);
+const ticketInfo = mongoose.model('ticketInfo', ticketScema);
 
 
 
@@ -294,8 +306,16 @@ app.get('/org-dashboard', (req, res) => {
     res.render("org/dashboard");
 })
 
-app.get('/org-tickets', (req, res) => {
-    res.render("org/tickets");
+app.get('/org-tickets', async (req, res) => {
+    try{
+        const TicketData = await ticketInfo.find({uid: 'a100'});
+        console.log(TicketData)
+        res.render("org/tickets", {TicketData});
+    }catch {
+        (er) => {
+            console.log(er);
+        }
+    }
 })
 app.get('/org-manage_event', async (req, res) => {
     try {
@@ -380,6 +400,31 @@ app.post('/org-modify-event-update', async (req, res)=>{
       } catch (err) {
         console.error('Error updating document:', err);
       } 
+})
+
+app.post('/org/create-ticket',(req,res)=>{
+    const { name, 'inline-radio-group': inlineRadioGroup, catagory, price, amount } = req.body;
+    const types = []
+    for (let i = 0; i < catagory.length; i++) {
+        types[i] = {catagory: catagory[i],
+                    price: price[i],
+                    capacity:amount[i],
+                    remainingCapacity: amount[i]
+        }
+        
+    }
+    ticket = {
+        uid: 'a100',
+        title: name,
+        types: types
+    }
+    newTicket = new ticketInfo(ticket);
+    newTicket.save()
+        .then(() => {
+            console.log("Ticket Info saved in mongodb")
+            res.redirect('/org-tickets')
+        })
+    console.log(newTicket)
 })
 
 

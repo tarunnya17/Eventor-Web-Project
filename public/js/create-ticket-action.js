@@ -15,19 +15,22 @@ function createGridDiv(num) {
         textInput.setAttribute('type', 'text');
         textInput.setAttribute('placeholder','Catagory Name');
         textInput.classList.add('border', 'border-gray-300', 'p-2', 'rounded-md');
-        textInput.id = `tile[${i}]`
+        textInput.id = `catagory[${i}]`
+        textInput.name = `catagory[${i}]`
 
         const numberInput1 = document.createElement('input');
         numberInput1.setAttribute('type', 'number');
         numberInput1.setAttribute('placeholder','Ticket Price');
         numberInput1.classList.add('border', 'border-gray-300', 'p-2', 'rounded-md');
         numberInput1.id = `price[${i}]`
+        numberInput1.name = `price[${i}]`
     
         const numberInput2 = document.createElement('input');
         numberInput2.setAttribute('type', 'number');
         numberInput2.classList.add('border', 'border-gray-300', 'p-2', 'rounded-md');
         numberInput2.setAttribute('placeholder','Capacity');
         numberInput2.id = `amount[${i}]`
+        numberInput2.name = `amount[${i}]`
 
         div.appendChild(textInput);
         div.appendChild(numberInput1);
