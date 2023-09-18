@@ -294,6 +294,9 @@ app.get('/org-dashboard', (req, res) => {
     res.render("org/dashboard");
 })
 
+app.get('/org-tickets', (req, res) => {
+    res.render("org/tickets");
+})
 app.get('/org-manage_event', async (req, res) => {
     try {
         const EventData = await Event.find({uid: 'a100'});
