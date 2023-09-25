@@ -99,16 +99,23 @@
             <li>
               <div>
                 <button class="flex items-center p-5 rounded-full border-2 border-white h-6"
-                  data-modal-target="authentication-modal" data-modal-toggle="authentication-modal">
-                  <p class="text-white">Log&nbsp;In</p>
+                  data-modal-target="authentication-modal" data-modal-toggle="authentication-modal" id="loginBtn">
+                  <p class="text-white" id="loginButtonP">Log&nbsp;In</p>
                 </button>
               </div>
+              
             </li>
             <li>
               <div>
-                <button class="flex items-center p-5 rounded-full border-2 border-purple-600 bg-purple-600 h-6 transition ease-in-out duration-300 hover:bg-purple-700"
+                <button id="signupBtn" class="flex items-center p-5 rounded-full border-2 border-purple-600 bg-purple-600 h-6 transition ease-in-out duration-300 hover:bg-purple-700"
                 data-modal-target="signup-modal" data-modal-toggle="signup-modal">
                   <span class="text-white">Sign&nbsp;Up</span>
+                </button>
+              </div>
+              <div>
+                <button id="logoutBtn" class="w-6 hidden items-center p-6 rounded-full border-2 border-purple-600 bg-purple-600 h-6 transition ease-in-out duration-300 hover:bg-purple-700"
+                data-modal-target="signup-modal" data-modal-toggle="signup-modal">
+                  <span class="text-white">L</span>
                 </button>
               </div>
             </li>

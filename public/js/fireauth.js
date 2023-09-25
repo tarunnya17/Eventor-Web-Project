@@ -32,6 +32,10 @@ const signinEmail = document.getElementById('email');
 const signinPass = document.getElementById('password');
 const signinForm = document.getElementById('signin_form');
 
+const loginBtn = document.getElementById('loginBtn');
+const logoutBtn = document.getElementById('logoutBtn');
+const signupBtn = document.getElementById('signupBtn');
+
 signupForm.addEventListener("submit", (event) => {
     event.preventDefault();
     console.log("Signing Up")
@@ -45,13 +49,13 @@ signupForm.addEventListener("submit", (event) => {
             axios.post('/signup', {
                 uid: user.uid,
                 name: fullname
-              })
-              .then(function (response) {
-                console.log(response);
-              })
-              .catch(function (error) {
-                console.log(error);
-              });
+            })
+                .then(function (response) {
+                    console.log(response);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
         })
         .catch((error) => {
             const errorCode = error.code;
@@ -68,6 +72,7 @@ signinForm.addEventListener('submit', (event) => {
 
     signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
+
             // Signed in 
             const user = userCredential.user;
             console.log(userCredential.user.accessToken)
@@ -81,27 +86,27 @@ signinForm.addEventListener('submit', (event) => {
 })
 
 
-// Function to display user info
-function displayUserInfo() {
-    const user = auth.currentUser;
-    if (user) {
-        user.getIdToken()
-            .then((idToken) => {
-                // The ID token is available here
-                console.log('ID Token:', idToken);
-            })
-            .catch((error) => {
-                // Handle errors if any occur
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                console.error('Error getting ID token:', errorCode, errorMessage);
-            });
-    } else {
-        console.log('Not logged in.');
-    }
-}
 
-// Check the user's login status on page load
 auth.onAuthStateChanged((user) => {
-    displayUserInfo(user);
+    if (user) {
+        // User is signed in, see docs for a list of available properties
+        // https://firebase.google.com/docs/reference/js/auth.user
+        const uid = user.uid;
+        console.log("User logged in.")
+        console.log(user)
+        loginBtn.classList.toggle("hidden")
+        loginBtn.classList.toggle("flex")
+        signupBtn.classList.toggle("hidden")
+        signupBtn.classList.toggle("flex")
+        logoutBtn.classList.toggle("hidden")
+        logoutBtn.classList.toggle("flex")
+        //const loginDiv = document.getElementById("loginDiv");
+        //loginDiv.innerHTML = '<button class="flex items-center p-5 rounded-full border-2 border-white h-6" data-modal-target="authentication-modal" data-modal-toggle="authentication-modal"> <p class="text-white" id="loginButtonP">Log&nbsp;Out</p> </button>'
+        // ...
+    } else {
+        //const loginDiv = document.getElementById("loginDiv");
+        //loginDiv.innerHTML = '<button id="logoutBtn" class="flex items-center p-5 rounded-full border-2 border-white h-6" data-modal-target="authentication-modal" data-modal-toggle="authentication-modal"> <p class="text-white" id="loginButtonP">Log&nbsp;In</p> </button>'
+        console.log("Not logged in!")
+    }
 });
+
