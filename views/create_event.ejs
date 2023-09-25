@@ -16,8 +16,7 @@
     <section class="bg-[url('/data/img/createEventBG.jpg')] bg-cover">
         <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto lg:py-0">
             <a href="#" class="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white mt-8">
-                <img class=" w-[20rem] mr-2" src="data/img/eventor-logo.png"
-                    alt="logo">
+                <img class=" w-[20rem] mr-2" src="data/img/eventor-logo.png" alt="logo">
             </a>
             <div
                 class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-4xl xl:p-0 dark:bg-gray-800 dark:border-gray-700">
@@ -26,11 +25,12 @@
                         class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
                         Create an event
                     </h1>
-                    <form class="space-y-4 md:space-y-6" action="/create-event" id="event-form" method="post" enctype="multipart/form-data">
+                    <form class="space-y-4 md:space-y-6" action="/create-event" id="event-form" method="post"
+                        enctype="multipart/form-data">
                         <div>
                             <label for="event_type"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Event Type</label>
-                            <select id="event_type" name="event_type" 
+                            <select id="event_type" name="event_type"
                                 class="bg-gray-50 border  border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                 <option selected>Choose an option</option>
                                 <option value="movie">Movie</option>
@@ -118,6 +118,21 @@
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                             </div>
                         </div>
+
+                        <label for="ticket-type"
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select an
+                            option</label>
+                        
+                        <select id="ticket-type"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            <option selected>Choose a ticket.</option>
+                            <% for( let i = 0; i < TicketData.length; i++ ) { %>
+                                <option value=<%= TicketData[i]._id %>><%= TicketData[i].title %></option>
+                            <% } %>
+                            <option value="US"><%= %></option>
+                        </select>
+                        <p class="block mb-2 text-sm font-medium text-gray-900 dark:text-white text-right">No ticket created? <a class="text-blue-800" href="">Create new ticket</a></p>
+
                         <div>
 
                             <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -148,7 +163,8 @@
                         <div>
 
                             <label for="description"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Event Description</label>
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Event
+                                Description</label>
                             <textarea id="description" name="description" rows="4"
                                 class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 placeholder="Write the deatils of your event..."></textarea>
@@ -157,7 +173,8 @@
                         <div>
 
                             <label for="additionalinfo"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Additional Information</label>
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Additional
+                                Information</label>
                             <textarea id="additionalinfo" name="additionalinfo" rows="2"
                                 class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 placeholder="e.g. dress code, parking etc."></textarea>

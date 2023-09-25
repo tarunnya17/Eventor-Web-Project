@@ -109,8 +109,16 @@ app.get('/', async (req, res) => {
     }
 });
 
-app.get('/create-event', (req, res) => {
-    res.render("create_event");
+app.get('/create-event', async (req, res) => {
+    try{
+        const TicketData = await ticketInfo.find({uid: 'a100'});
+        console.log(TicketData)
+        res.render("create_event", {TicketData});
+    }catch {
+        (er) => {
+            console.log(er);
+        }
+    }
 })
 
 app.get('/admin', (req, res) => {
