@@ -109,6 +109,10 @@ app.get('/', async (req, res) => {
     }
 });
 
+app.get('/ep', (req, res) => {
+    res.render("eventpage");
+})
+
 app.get('/create-event', async (req, res) => {
     try{
         const TicketData = await ticketInfo.find({uid: 'a100'});

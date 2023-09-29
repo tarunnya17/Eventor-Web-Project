@@ -32,9 +32,34 @@ function createGridDiv(num) {
         numberInput2.id = `amount[${i}]`
         numberInput2.name = `amount[${i}]`
 
+        const rowInput = document.createElement('input');
+        const rowDiv = document.createElement('div');
+        rowInput.setAttribute('type', 'number');
+        rowInput.classList.add('border', 'border-gray-300', 'p-2', 'rounded-md', 'col-span-3', 'w-fit');
+        rowInput.setAttribute('placeholder','Number of Rows');
+        rowInput.id = `rowNum[${i}]`;
+        rowInput.name = `rowNum[${i}]`;
+
+        rowInput.addEventListener('change', addRow)
+
+        function addRow(n) {
+          for (let j = 0; j < rowInput.value; j++) {
+            const rowName = document.createElement('input');
+            rowName.setAttribute('type', 'text');
+            rowName.id = `rowName[${i}][${j}]`
+            rowName.name = `rowName[${i}][${j}]`
+            rowName.value =String.fromCharCode(65+j);
+
+            const rowCapacity = document.createElement('input');
+            rowDiv.appendChild(p);
+          }
+        }   
+
         div.appendChild(textInput);
         div.appendChild(numberInput1);
         div.appendChild(numberInput2);
+        div.appendChild(rowInput);
+        div.appendChild(rowDiv);
         parentElement.appendChild(div);
     }
   }
@@ -55,8 +80,12 @@ function handleRadioChange() {
   console.log("Selected value:", selectedValue);
 }
 
+radioButtons.forEach(radioButton => {
+  radioButton.addEventListener('change', handleRadioChange);
+});
 
-radioButtons[0].addEventListener("change", handleRadioChange);
-radioButtons[1].addEventListener("change", handleRadioChange);
-radioButtons[2].addEventListener("change", handleRadioChange);
-radioButtons[3].addEventListener("change", handleRadioChange);
+
+// radioButtons[0].addEventListener("change", handleRadioChange);
+// radioButtons[1].addEventListener("change", handleRadioChange);
+// radioButtons[2].addEventListener("change", handleRadioChange);
+// radioButtons[3].addEventListener("change", handleRadioChange);

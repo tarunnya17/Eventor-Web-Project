@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.3.1/firebase-app.js";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.3.1/firebase-auth.js"
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/10.3.1/firebase-auth.js"
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -34,7 +34,16 @@ const signinForm = document.getElementById('signin_form');
 
 const loginBtn = document.getElementById('loginBtn');
 const logoutBtn = document.getElementById('logoutBtn');
+const logoutBtn2 = document.getElementById('logoutBtn2');
 const signupBtn = document.getElementById('signupBtn');
+
+logoutBtn2.addEventListener('click', () => {
+    signOut(auth).then(() => {
+        window.location.reload()
+    }).catch((error) => {
+        // An error happened.
+    });
+})
 
 signupForm.addEventListener("submit", (event) => {
     event.preventDefault();
@@ -76,6 +85,7 @@ signinForm.addEventListener('submit', (event) => {
             // Signed in 
             const user = userCredential.user;
             console.log(userCredential.user.accessToken)
+            window.location.reload()
             // ...
         })
         .catch((error) => {
@@ -109,4 +119,5 @@ auth.onAuthStateChanged((user) => {
         console.log("Not logged in!")
     }
 });
+
 
