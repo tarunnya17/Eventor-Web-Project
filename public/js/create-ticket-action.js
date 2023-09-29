@@ -49,7 +49,7 @@ function createGridDiv(num) {
             rowName.id = `rowName[${i}][${j}]`
             rowName.name = `rowName[${i}][${j}]`
             rowName.value =String.fromCharCode(65+j);
-
+            
             const rowCapacity = document.createElement('input');
             rowDiv.appendChild(p);
           }
