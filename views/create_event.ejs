@@ -12,6 +12,7 @@
 </head>
 
 <body>
+    <% var tickets = TicketData %>
     <!-- <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script> -->
     <section class="bg-[url('/data/img/createEventBG.jpg')] bg-cover">
         <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto lg:py-0">
@@ -119,17 +120,16 @@
                             </div>
                         </div>
 
-                        <label for="ticket-type"
+                        <label for="ticket_type"
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select an
                             option</label>
                         
-                        <select id="ticket-type"
+                        <select id="ticket_type" name="ticket_type"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                             <option selected>Choose a ticket.</option>
-                            <% for( let i = 0; i < TicketData.length; i++ ) { %>
-                                <option value=<%= TicketData[i]._id %>><%= TicketData[i].title %></option>
+                            <% for( let i = 0; i < tickets.length; i++ ) { %>
+                                <option value=<%= tickets[i]._id %>><%= tickets[i].title %></option>
                             <% } %>
-                            <option value="US"><%= %></option>
                         </select>
                         <p class="block mb-2 text-sm font-medium text-gray-900 dark:text-white text-right">No ticket created? <a class="text-blue-800" href="">Create new ticket</a></p>
 

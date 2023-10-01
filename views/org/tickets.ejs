@@ -2,97 +2,86 @@
 <html>
 
 <head>
-   <meta charset="utf-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1">
-   <link rel="stylesheet" href="css/flowbite.css">
-   <link rel="stylesheet" href="css/output.css">
-   <link rel="stylesheet" href="css/main.css">
-   <script src="js/flowbite.js"></script>
-   <title>Admin</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="css/flowbite.css">
+  <link rel="stylesheet" href="css/output.css">
+  <link rel="stylesheet" href="css/main.css">
+  <script src="js/flowbite.js"></script>
+  <title>Admin</title>
 </head>
 
 <body>
 
 
-   <button data-drawer-target="default-sidebar" data-drawer-toggle="default-sidebar" aria-controls="default-sidebar"
-      type="button"
-      class="inline-flex items-center p-2 mt-2 ml-3 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
-      <span class="sr-only">Open sidebar</span>
-      <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
-         xmlns="http://www.w3.org/2000/svg">
-         <path clip-rule="evenodd" fill-rule="evenodd"
-            d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z">
-         </path>
-      </svg>
-   </button>
+  <button data-drawer-target="default-sidebar" data-drawer-toggle="default-sidebar" aria-controls="default-sidebar" type="button" class="inline-flex items-center p-2 mt-2 ml-3 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
+    <span class="sr-only">Open sidebar</span>
+    <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+      <path clip-rule="evenodd" fill-rule="evenodd" d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z">
+      </path>
+    </svg>
+  </button>
 
-   <aside id="default-sidebar"
-      class="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0"
-      aria-label="Sidebar">
-      <div class="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
-         <ul class="space-y-2 font-medium">
-            <%- include('menu_items/dash_button.ejs') %>
-               <%- include('menu_items/manage_button.ejs') %>
-                  <%- include('menu_items/create_ticket_button_act.ejs') %>
-                     <%- include('menu_items/users_button.ejs') %>
-                        <%- include('menu_items/sign_out.ejs') %>
-         </ul>
+  <aside id="default-sidebar" class="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidebar">
+    <div class="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
+      <ul class="space-y-2 font-medium">
+        <%- include('menu_items/dash_button.ejs') %>
+        <%- include('menu_items/manage_button.ejs') %>
+        <%- include('menu_items/create_ticket_button_act.ejs') %>
+        <%- include('menu_items/users_button.ejs') %>
+        <%- include('menu_items/sign_out.ejs') %>
+      </ul>
+    </div>
+  </aside>
+
+  <div class="p-6 sm:ml-64">
+    <div class="grid grid-cols-5 gap-5">
+      <% for( let i=0; i < TicketData.length; i++ ) { %>
+      <% const {title, types}=TicketData[i] %>
+      <div class="bg-slate-50 h-44 rounded-lg shadow-md grid grid-cols-3 justify-items-center pl-3 pt-3">
+        <div class="col-span-3">
+          <%= title%>
+        </div>
+        <% for( let j=0; j < types.length; j++ ) { %>
+        <%const {catagory, price, capacity}=types[j]%>
+        <div>
+          <%= catagory%>
+        </div>
+        <div>
+          <%= price%>
+        </div>
+        <div>
+          <%= capacity%>
+        </div>
+        <% } %>
+        <button data-modal-target="viewTicketModal<%=i%>" data-modal-toggle="viewTicketModal<%=i%>" type="button" class="self-end mb-3 flex h-7 w-full bg-[#9333EA] items-center p-2 text-white rounded-lg dark:text-white dark:hover:bg-gray-700 group">View</button>
       </div>
-   </aside>
-
-   <div class="p-6 sm:ml-64">
-      <div class="grid grid-cols-5 gap-5">
-         <% for( let i=0; i < TicketData.length; i++ ) { %>
-            <% const {title, types}=TicketData[i] %>
-               <div class="bg-slate-50 h-44 rounded-lg shadow-md grid grid-cols-3 justify-items-center pl-3 pt-3">
-                  <div class="col-span-3">
-                     <%= title%>
-                  </div>
-                  <% for( let j=0; j < types.length; j++ ) { %>
-                     <%const {catagory, price, capacity}=types[j]%>
-                        <div>
-                           <%= catagory%>
-                        </div>
-                        <div>
-                           <%= price%>
-                        </div>
-                        <div>
-                           <%= capacity%>
-                        </div>
-                        <% } %>
-                           <button data-modal-target="viewTicketModal<%=i%>" data-modal-toggle="viewTicketModal<%=i%>" type="button"
-                              class="self-end mb-3 flex h-7 w-full bg-[#9333EA] items-center p-2 text-white rounded-lg dark:text-white dark:hover:bg-gray-700 group">View</button>
-               </div>
-               <!-- View Modal -->
-               <div id="viewTicketModal<%=i%>" tabindex="-1" aria-hidden="true"
-                  class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
-                  <div class="relative w-fit max-w-full max-h-full">
-                     <%- include('modals/view-ticket-info.ejs', {types}) %>
-                  </div>
-               </div>
-               <% } %>
-
-                  <button id="create-ticket" data-modal-target="createTicketModal" data-modal-toggle="createTicketModal"
-                     class="text-gray-700 hover:text-gray-800 bg-slate-50 hover:bg-slate-100 w-full rounded-lg shadow-md flex justify-center items-center">
-                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                        stroke="currentColor" class="w-14 h-14">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-                     </svg>
-                  </button>
+      <!-- View Modal -->
+      <div id="viewTicketModal<%=i%>" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+        <div class="relative w-fit max-w-full max-h-full">
+          <%- include('modals/view-ticket-info.ejs', {types}) %>
+        </div>
       </div>
-   </div>
+      <% } %>
 
-   </div>
+      <button id="create-ticket" data-modal-target="createTicketModal" data-modal-toggle="createTicketModal" class="text-gray-700 hover:text-gray-800 bg-slate-50 hover:bg-slate-100 w-full rounded-lg shadow-md flex justify-center items-center">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-14 h-14">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+        </svg>
+      </button>
+    </div>
+  </div>
 
-   <!-- Main modal -->
-   <div id="createTicketModal" tabindex="-1" aria-hidden="true"
-      class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
-      <div class="relative w-full max-w-2xl max-h-full">
-         <%- include('modals/create-ticket-modal.ejs') %>
-      </div>
-   </div>
+  </div>
 
-   <script src="js/create-ticket-action.js"></script>
+  <!-- Main modal -->
+  <div id="createTicketModal" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+    <div class="relative w-full max-w-2xl max-h-full">
+      <%- include('modals/create-ticket-modal.ejs') %>
+    </div>
+  </div>
+
+  <script src="js/create-ticket-action.js"></script>
 </body>
 
 </html>

@@ -56,7 +56,19 @@ const eventSchema = new mongoose.Schema({
     contactmail: String,
     payment: String,
     contactphone: String,
-    ticket_price: Number,
+    ticket: {
+        title: String,
+        types: [{
+            catagory: String,
+            price: Number,
+            tickets: [[
+                {
+                    sitId: String,
+                    Available: Boolean
+                }
+            ]]
+        }]
+    },
     banner_image:
     {
         url: String,
@@ -113,16 +125,23 @@ app.get('/', async (req, res) => {
     }
 });
 
+app.get('/event/:eventID', async (req, res) => {
+    const eventId = req.params.eventID;
+    const eventObj = new mongoose.Types.ObjectId(eventId);
+    const eventData = await Event.findById(eventObj);
+    console.log(eventData)
+})
+
 app.get('/ep', (req, res) => {
     res.render("eventpage");
 })
 
 app.get('/create-event', async (req, res) => {
-    try{
-        const TicketData = await ticketInfo.find({uid: 'a100'});
+    try {
+        const TicketData = await ticketInfo.find({ uid: 'a100' });
         console.log(TicketData)
-        res.render("create_event", {TicketData});
-    }catch {
+        res.render("create_event", { TicketData });
+    } catch {
         (er) => {
             console.log(er);
         }
@@ -142,7 +161,7 @@ app.get('/approve_event', async (req, res) => {
         const waitEventData = await waitEvent.find({});
         //console.log(waitEventData);
 
-        res.render("admin/approve_event", {waitEventData});
+        res.render("admin/approve_event", { waitEventData });
 
     } catch {
         (er) => {
@@ -151,8 +170,8 @@ app.get('/approve_event', async (req, res) => {
     }
 })
 
-app.post('/admin/deny_event', async (req, res)=> {
-    try{
+app.post('/admin/deny_event', async (req, res) => {
+    try {
         const id = req.body.eventId.trim();
         console.log(id.length);
         objectId = new mongoose.Types.ObjectId(id);
@@ -168,16 +187,16 @@ app.post('/admin/deny_event', async (req, res)=> {
     }
 })
 
-app.post('/admin/approve_event', async (req, res)=> {
-    try{
+app.post('/admin/approve_event', async (req, res) => {
+    try {
         const id = req.body.eventId.trim();
         console.log(id.length);
         objectId = new mongoose.Types.ObjectId(id);
         console.log(objectId);
-        const data = await waitEvent.findOne({_id:objectId},{_id: false });
+        const data = await waitEvent.findOne({ _id: objectId }, { _id: false });
         //console.log(data);
         //const newEvent = new Event(data);
-        try{
+        try {
             Event.insertMany([data])
 
         }
@@ -186,7 +205,7 @@ app.post('/admin/approve_event', async (req, res)=> {
                 console.log(er);
             }
         }
-        await waitEvent.findOneAndRemove({_id:objectId},{_id: false });
+        await waitEvent.findOneAndRemove({ _id: objectId }, { _id: false });
         // newEvent.save()
         res.redirect('/approve_event');
     }
@@ -202,7 +221,7 @@ app.get('/manage_event', async (req, res) => {
         const EventData = await Event.find({});
         //console.log(EventData);
 
-        res.render("admin/manage_event", {EventData});
+        res.render("admin/manage_event", { EventData });
 
     } catch {
         (er) => {
@@ -211,16 +230,16 @@ app.get('/manage_event', async (req, res) => {
     }
 })
 
-app.post('/admin/manage_event/delete', async (req, res)=> {
-    try{
+app.post('/admin/manage_event/delete', async (req, res) => {
+    try {
         const id = req.body.eventId.trim();
         console.log(id.length);
         objectId = new mongoose.Types.ObjectId(id);
         console.log(objectId);
-        const data = await Event.findOne({_id:objectId},{_id: false });
+        const data = await Event.findOne({ _id: objectId }, { _id: false });
         //console.log(data);
         //const newEvent = new Event(data);
-        try{
+        try {
             binEvent.insertMany([data])
         }
         catch {
@@ -228,7 +247,7 @@ app.post('/admin/manage_event/delete', async (req, res)=> {
                 console.log(er);
             }
         }
-        await Event.findOneAndRemove({_id:objectId},{_id: false });
+        await Event.findOneAndRemove({ _id: objectId }, { _id: false });
         // newEvent.save()
         res.redirect('/manage_event');
     }
@@ -239,10 +258,10 @@ app.post('/admin/manage_event/delete', async (req, res)=> {
     }
 })
 
-app.post('/admin/users/delete', async (req, res)=> {
-    try{
+app.post('/admin/users/delete', async (req, res) => {
+    try {
         id = req.body.uid.trim();
-        await UsersInfo.findOneAndDelete({uid: id});
+        await UsersInfo.findOneAndDelete({ uid: id });
         res.redirect('/users');
     }
     catch {
@@ -254,22 +273,25 @@ app.get('/users', async (req, res) => {
     try {
         const userData = await UsersInfo.find({});
         console.log(userData);
-        res.render("admin/users", {userData});
+        res.render("admin/users", { userData });
     }
     catch {
         (er) => {
             console.log(er);
         }
     }
-    
+
 })
 
-app.post('/create-event', upload.any(), (req, res) => {
+app.post('/create-event', upload.any(), async (req, res) => {
     try {
         console.log(req.body);
-        console.log(req.files);
-        console.log(req.body.event_type);
         const images = req.files.map(f => ({ url: f.path, filename: f.filename }))
+        const tId = new mongoose.Types.ObjectId(req.body.ticket_type)
+        const ticketOne = await ticketInfo.findById(tId)
+        const {title, types} = ticketOne
+        const ticket = {title: title,
+                        types: types}
         console.log(images[0])
         const eventData = {
             uid: "a100",
@@ -283,7 +305,7 @@ app.post('/create-event', upload.any(), (req, res) => {
             contactmail: req.body.contactmail,
             payment: req.body.payment,
             contactphone: req.body.contactphone,
-            ticket_price: req.body.ticket_price,
+            ticket: ticket,
             banner_image: images[0], // Assuming you want to store the file name or URL
             poster_image: images[1], // Assuming you want to store the file name or URL
             description: req.body.description,
@@ -296,7 +318,7 @@ app.post('/create-event', upload.any(), (req, res) => {
             .then(() => {
                 console.log("Event Saved!")
             });
-        res.render('create_event')
+        res.redirect('/create-event')
     }
     catch (error) {
         console.error(error);
@@ -323,10 +345,10 @@ app.get('/org-dashboard', (req, res) => {
 })
 
 app.get('/org-tickets', async (req, res) => {
-    try{
-        const TicketData = await ticketInfo.find({uid: 'a100'});
-        res.render("org/tickets", {TicketData});
-    }catch {
+    try {
+        const TicketData = await ticketInfo.find({ uid: 'a100' });
+        res.render("org/tickets", { TicketData });
+    } catch {
         (er) => {
             console.log(er);
         }
@@ -334,10 +356,10 @@ app.get('/org-tickets', async (req, res) => {
 })
 app.get('/org-manage_event', async (req, res) => {
     try {
-        const EventData = await Event.find({uid: 'a100'});
+        const EventData = await Event.find({ uid: 'a100' });
         //console.log(EventData);
 
-        res.render("org/manage_event", {EventData});
+        res.render("org/manage_event", { EventData });
 
     } catch {
         (er) => {
@@ -346,15 +368,15 @@ app.get('/org-manage_event', async (req, res) => {
     }
 })
 
-app.post('/org-manage_event-modify', async(req, res) => {
-    try{
+app.post('/org-manage_event-modify', async (req, res) => {
+    try {
         const id = req.body.eventId.trim();
         console.log(id.length);
         objectId = new mongoose.Types.ObjectId(id);
         console.log(objectId);
         const EventData = await Event.findById(objectId);
         //res.redirect('/approve_event');
-        res.render("org/modify_event", {EventData});
+        res.render("org/modify_event", { EventData });
         console.log(EventData)
     }
     catch {
@@ -365,7 +387,7 @@ app.post('/org-manage_event-modify', async(req, res) => {
     //res.render("org/modify_event");
 })
 
-app.post('/org-modify-event-update', async (req, res)=>{
+app.post('/org-modify-event-update', async (req, res) => {
     const {
         event_type,
         event_title,
@@ -381,26 +403,26 @@ app.post('/org-modify-event-update', async (req, res)=>{
         description,
         additionalinfo,
         id,
-      } = req.body;
-      
+    } = req.body;
+
     const ObjID = new mongoose.Types.ObjectId(id.trim());
     const updateOperation = {
-    $set: {
-        
-        event_type: event_type,
-        event_title: event_title ,
-        startdate: startdate,
-        enddate: enddate,
-        starttime: starttime,
-        endtime: endtime,
-        venue: venue,
-        contactmail: contactmail,
-        payment: payment,
-        contactphone: contactphone,
-        ticket_price: ticket_price,
-        description: description,
-        additionalinfo: additionalinfo
-    },
+        $set: {
+
+            event_type: event_type,
+            event_title: event_title,
+            startdate: startdate,
+            enddate: enddate,
+            starttime: starttime,
+            endtime: endtime,
+            venue: venue,
+            contactmail: contactmail,
+            payment: payment,
+            contactphone: contactphone,
+            ticket_price: ticket_price,
+            description: description,
+            additionalinfo: additionalinfo
+        },
     };
     try {
         // Update the document with the specified ObjectId
@@ -408,19 +430,19 @@ app.post('/org-modify-event-update', async (req, res)=>{
         res.redirect('/org-manage_event')
         // Check the result
         if (result.modifiedCount === 1) {
-          console.log('Document updated successfully.');
+            console.log('Document updated successfully.');
         } else {
-          console.log('Document not found or not updated.');
+            console.log('Document not found or not updated.');
         }
-      } catch (err) {
+    } catch (err) {
         console.error('Error updating document:', err);
-      } 
+    }
 })
 
-app.post('/org/create-ticket',(req,res)=> {
+app.post('/org/create-ticket', (req, res) => {
     const { name, 'inline-radio-group': inlineRadioGroup, catagory, price, rowNum, rowName, rowCapacity } = req.body;
     const types = []
-    
+
     for (let i = 0; i < inlineRadioGroup; i++) {
 
         const tickets = []
@@ -428,18 +450,20 @@ app.post('/org/create-ticket',(req,res)=> {
             const rowTicket = []
             for (let k = 0; k < Number(rowCapacity[i][j]); k++) {
                 rowTicket.push({
-                    sitId: `${rowName[i][j]}-${k+1}`,
-                                Available: true
+                    sitId: `${rowName[i][j]}-${k + 1}`,
+                    Available: true
                 })
             }
             tickets.push(rowTicket)
         }
         console.log(tickets)
-        types[i] = {catagory: catagory[i],
-                    price: price[i],
-                    tickets: tickets   
-                    
-    }}
+        types[i] = {
+            catagory: catagory[i],
+            price: price[i],
+            tickets: tickets
+
+        }
+    }
     ticket = {
         uid: 'a100',
         title: name,
@@ -458,7 +482,7 @@ app.post('/org/create-ticket',(req,res)=> {
 app.use((err, req, res, next) => {
     console.error(err.stack);
     res.status(500).send('Something broke!');
-  });
+});
 
 app.listen(3000, () => {
     console.log("Listening on port 3000")
