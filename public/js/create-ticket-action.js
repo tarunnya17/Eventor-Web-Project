@@ -25,39 +25,46 @@ function createGridDiv(num) {
         numberInput1.id = `price[${i}]`
         numberInput1.name = `price[${i}]`
     
-        const numberInput2 = document.createElement('input');
-        numberInput2.setAttribute('type', 'number');
-        numberInput2.classList.add('border', 'border-gray-300', 'p-2', 'rounded-md');
-        numberInput2.setAttribute('placeholder','Capacity');
-        numberInput2.id = `amount[${i}]`
-        numberInput2.name = `amount[${i}]`
+        
 
         const rowInput = document.createElement('input');
         const rowDiv = document.createElement('div');
+        rowDiv.classList.add('grid', 'grid-cols-2','col-span-3', 'gap-4', 'p-3');
+
         rowInput.setAttribute('type', 'number');
         rowInput.classList.add('border', 'border-gray-300', 'p-2', 'rounded-md', 'col-span-3', 'w-fit');
         rowInput.setAttribute('placeholder','Number of Rows');
         rowInput.id = `rowNum[${i}]`;
         rowInput.name = `rowNum[${i}]`;
 
-        rowInput.addEventListener('change', addRow)
+        rowInput.addEventListener('change', ()=> {
+          addRow(rowInput.value)
+        })
 
         function addRow(n) {
-          for (let j = 0; j < rowInput.value; j++) {
+          while (rowDiv.firstChild) {
+            rowDiv.removeChild(rowDiv.firstChild);
+          }
+          for (let j = 0; j < n; j++) {
             const rowName = document.createElement('input');
             rowName.setAttribute('type', 'text');
+            rowName.classList.add('border', 'border-gray-300', 'p-2', 'rounded-md', 'w-fit');
             rowName.id = `rowName[${i}][${j}]`
             rowName.name = `rowName[${i}][${j}]`
             rowName.value =String.fromCharCode(65+j);
-            
+
             const rowCapacity = document.createElement('input');
-            rowDiv.appendChild(p);
+            rowCapacity.setAttribute('type', 'text');
+            rowCapacity.id = `rowCapacity[${i}][${j}]`;
+            rowCapacity.classList.add('border', 'border-gray-300', 'p-2', 'rounded-md',  'w-fit');
+            rowCapacity.name = `rowCapacity[${i}][${j}]`;
+            rowDiv.appendChild(rowName);
+            rowDiv.appendChild(rowCapacity);
           }
         }   
 
         div.appendChild(textInput);
         div.appendChild(numberInput1);
-        div.appendChild(numberInput2);
         div.appendChild(rowInput);
         div.appendChild(rowDiv);
         parentElement.appendChild(div);

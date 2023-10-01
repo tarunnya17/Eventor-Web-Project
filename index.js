@@ -76,8 +76,12 @@ const ticketScema = new mongoose.Schema({
     types: [{
         catagory: String,
         price: Number,
-        capacity: Number,
-        remainingCapacity: Number,
+        tickets: [[
+            {
+                sitId: String,
+                Available: Boolean
+            }
+        ]]
     }],
     uid: String
 });
@@ -321,7 +325,6 @@ app.get('/org-dashboard', (req, res) => {
 app.get('/org-tickets', async (req, res) => {
     try{
         const TicketData = await ticketInfo.find({uid: 'a100'});
-        console.log(TicketData)
         res.render("org/tickets", {TicketData});
     }catch {
         (er) => {
@@ -414,30 +417,42 @@ app.post('/org-modify-event-update', async (req, res)=>{
       } 
 })
 
-app.post('/org/create-ticket',(req,res)=>{
-    const { name, 'inline-radio-group': inlineRadioGroup, catagory, price, amount } = req.body;
+app.post('/org/create-ticket',(req,res)=> {
+    const { name, 'inline-radio-group': inlineRadioGroup, catagory, price, rowNum, rowName, rowCapacity } = req.body;
     const types = []
-    for (let i = 0; i < catagory.length; i++) {
+    
+    for (let i = 0; i < inlineRadioGroup; i++) {
+
+        const tickets = []
+        for (let j = 0; j < Number(rowNum[i]); j++) {
+            const rowTicket = []
+            for (let k = 0; k < Number(rowCapacity[i][j]); k++) {
+                rowTicket.push({
+                    sitId: `${rowName[i][j]}-${k+1}`,
+                                Available: true
+                })
+            }
+            tickets.push(rowTicket)
+        }
+        console.log(tickets)
         types[i] = {catagory: catagory[i],
                     price: price[i],
-                    capacity:amount[i],
-                    remainingCapacity: amount[i]
-        }
-        
-    }
+                    tickets: tickets   
+                    
+    }}
     ticket = {
         uid: 'a100',
         title: name,
         types: types
     }
     newTicket = new ticketInfo(ticket);
+    console.log(newTicket)
     newTicket.save()
         .then(() => {
             console.log("Ticket Info saved in mongodb")
             res.redirect('/org-tickets')
         })
-    console.log(newTicket)
-})
+});
 
 
 app.use((err, req, res, next) => {
