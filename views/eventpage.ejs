@@ -4,15 +4,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="css/flowbite.css">
-  <link rel="stylesheet" href="css/output.css">
-  <link rel="stylesheet" href="css/main.css">
-  <script src="js/flowbite.js"></script>
+  <link rel="stylesheet" href="/css/flowbite.css">
+  <link rel="stylesheet" href="/css/output.css">
+  <link rel="stylesheet" href="/css/main.css">
+  <script src="/js/flowbite.js"></script>
   <title>Document</title>
 </head>
-
+<% const { _id, uid, event_type, event_title, startdate, enddate, starttime, endtime, venue, contactmail, payment, contactphone, ticket, banner_image, poster_image, description, additionalinfo, __v } = eventData %>
 <body class="w-full overflow-x-hidden">
-  <script src="js/app.js"></script>
+  <script src="/js/app.js"></script>
   <nav class="bg-purple-950 w-full h-[36em]">
     <div class="max-w-screen-none grid grid-cols-12 items-center justify-evenly mx-auto p-6">
       <div class="lg:col-span-2 md:col-span-11 col-span-10">
@@ -107,34 +107,32 @@
     </div>
   </nav>
   <div class=" w-full flex absolute top-36 justify-center z-10">
-    <img src="https://movies.universalpictures.com/media/06-opp-dm-mobile-banner-1080x745-now-pl-f01-071223-64bab982784c7-1.jpg" alt="" class="rounded-lg border-black h-[44rem] w-4/5 object-cover object-bottom">
+    <img src=<%= banner_image.url %>  alt="" class="rounded-lg border-black h-[44rem] w-4/5 object-cover object-bottom">
   </div>
 
   <div class="flex mt-[320px] justify-center w-full h-full z-20 mb-20">
     <div class="grid grid-cols-3 min-w-[80%] max-w-[80%] overflow-hidden">
       <div class="col-span-2 bg-purple-300 h-full p-5 rounded-lg">
-        <p class="text-4xl font-bold">Oppenheimer</p>
+        <p class="text-4xl font-bold"><%= event_title %></p>
         <p class="text-2xl text-black font-bold mt-4">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 mb-1 inline">
             <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
             <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
           </svg>
-          <span>Star Cineplex @ Rajshahi </span>
+          <span><%= venue %> </span>
         </p>
         <p class="text-2xl  text-black font-bold mt-4">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 mb-1 inline">
             <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5m-9-6h.008v.008H12v-.008zM12 15h.008v.008H12V15zm0 2.25h.008v.008H12v-.008zM9.75 15h.008v.008H9.75V15zm0 2.25h.008v.008H9.75v-.008zM7.5 15h.008v.008H7.5V15zm0 2.25h.008v.008H7.5v-.008zm6.75-4.5h.008v.008h-.008v-.008zm0 2.25h.008v.008h-.008V15zm0 2.25h.008v.008h-.008v-.008zm2.25-4.5h.008v.008H16.5v-.008zm0 2.25h.008v.008H16.5V15z" />
           </svg>
 
-          <span>September 22, 2021 · 20.00 - 21.56 WIB </span>
+          <span><%= startdate %> </span>
         </p>
-        <p class="text-2xl mt-5 mb-10">Marty travels back in time using an eccentric scientist's time machine.
-          However, he must make his high-school-aged parents fall in love in
-          order to return to the present. </p>
+        <p class="text-2xl mt-5 mb-10"> <%= description %> </p>
       </div>
       <div class="grid grid-cols-1 col-span-1 ml-10 mr-4 p-5 h-fit shadow-lg shadow-gray-600 border-2 rounded-xl">
         <div class="text-lg mt-5 text-center text-gray-700">Ticket Starting at</div>
-        <div class="text-lg text-center font-bold text-gray-900">BDT 200-500</div>
+        <div class="text-lg text-center font-bold text-gray-900">BDT <%= ticket.types[0].price %></div>
         <div class=" justify-self-center mt-8">
           <button class="flex items-center font-bold text-xl rounded-full px-20 h-10 bg-pink-500 hover:bg-pink-700 border-pink-500 hover:border-pink-700 border-4 text-white" type="button">
             <p>Buy&nbsp;Tickets</p>

@@ -130,6 +130,7 @@ app.get('/event/:eventID', async (req, res) => {
     const eventObj = new mongoose.Types.ObjectId(eventId);
     const eventData = await Event.findById(eventObj);
     console.log(eventData)
+    res.render("eventpage", {eventData})
 })
 
 app.get('/ep', (req, res) => {
