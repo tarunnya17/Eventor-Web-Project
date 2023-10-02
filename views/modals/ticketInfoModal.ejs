@@ -1,0 +1,22 @@
+<div class="relative bg-white rounded-lg shadow dark:bg-gray-700 p-6">
+  <div>
+    <% var row = Object.keys(types.tickets).length %>
+
+    <% for( let j = 0; j < row; j++ ) { %>
+    <div class="flex">
+      <%var col = Object.keys(types.tickets[j]).length %>
+      <% for( let k = 0; k < col; k++ ) { %>
+      <% var bg = 'bg-red-500' %>
+      <% var act = 'disable' %>
+      <% if (types.tickets[j][k].Available) { %>
+      <%  bg = 'bg-slate-200' %>
+      <% act = '' %>
+      <% } %>
+      <button class="<%= bg %> p-2 m-2 rounded-full whitespace-nowrap  w-15 h-15 text-xs" <%= act %>>
+        <%= types.tickets[j][k].sitId %>
+      </button>
+      <% } %>
+    </div>
+    <% } %>
+  </div>
+</div>

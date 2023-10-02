@@ -8,7 +8,11 @@
     <div class="flex">
       <%var col = Object.keys(types[i].tickets[j]).length %>
       <% for( let k = 0; k < col; k++ ) { %>
-      <div class="bg-slate-200 p-2 m-2 rounded-full whitespace-nowrap  w-15 h-15 text-xs">
+        <% var bg = 'bg-green-500' %>
+        <% if (types[i].tickets[j][k].Available) { %>
+            <%  bg = 'bg-slate-200' %>
+        <% } %>
+        <div class="<%= bg %> p-2 m-2 rounded-full whitespace-nowrap  w-15 h-15 text-xs">
         <%= types[i].tickets[j][k].sitId %>
       </div>
       <% } %>

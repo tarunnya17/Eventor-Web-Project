@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/flowbite.css">
+  <link rel="stylesheet" href="/css/output.css">
+  <link rel="stylesheet" href="/css/main.css">
+  <script src="/js/flowbite.js"></script>
+  <title>Purchase</title>
+</head>
+
+<body>
+  <% const { _id, uid, event_type, event_title, startdate, enddate, starttime, endtime, venue, contactmail, payment, contactphone, ticket, banner_image, poster_image, description, additionalinfo, __v } = eventData %>
+  <div class="flex flex-col items-center">
+    <div class="flex justify-start items-center mt-10 w-[90%]">
+      <div class="w-16 h-16 p-2 border-[2px] border-purple-900 rounded-lg text-purple-900">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-full h-full">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+        </svg>
+      </div>
+      <div class="ml-10">
+        <h1 class="font-medium text-5xl">Ticket Options</h1>
+      </div>
+    </div>
+    <div class="flex flex-row gap-2 justify-center w-[90%] h-96 mt-16">
+      <div>
+        <img src="https://www.hollywoodreporter.com/wp-content/uploads/2022/07/Oppenheimer-Movie-Poster-Universal-Publicity-EMBED-2022-.jpg" class="h-96" alt="">
+      </div>
+      <div class="w-full h-full">
+        <div class="flex justify-start w-full h-full z-20 mb-20">
+          <div class="grid grid-cols-2 w-full">
+            <div class="col-span-2 bg-purple-200 h-full p-5 rounded-lg">
+              <p class="text-4xl font-bold"><%= event_title %></p>
+              <p class="text-2xl text-black font-bold mt-4">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 mb-1 inline">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
+                </svg>
+                <span><%= venue %> </span>
+              </p>
+              <p class="text-2xl  text-black font-bold mt-4">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 mb-1 inline">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5m-9-6h.008v.008H12v-.008zM12 15h.008v.008H12V15zm0 2.25h.008v.008H12v-.008zM9.75 15h.008v.008H9.75V15zm0 2.25h.008v.008H9.75v-.008zM7.5 15h.008v.008H7.5V15zm0 2.25h.008v.008H7.5v-.008zm6.75-4.5h.008v.008h-.008v-.008zm0 2.25h.008v.008h-.008V15zm0 2.25h.008v.008h-.008v-.008zm2.25-4.5h.008v.008H16.5v-.008zm0 2.25h.008v.008H16.5V15z" />
+                </svg>
+
+                <span><%= startdate %>- <%= starttime %> </span>
+              </p>
+              <p class="text-2xl mt-5 mb-10"> <%= description %></p>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="flex justify-start mt-20 w-[90%] text-2xl font-bold">
+      Select Ticket
+    </div>
+    <div class="flex justify-start gap-4 mt-4 w-[90%]">
+      <% for( let i = 0; i < ticket.types.length; i++ ) { %>
+
+      <button data-modal-target="ticketInfo<%=i%>" data-modal-toggle="ticketInfo<%=i%>" class="border-slate-300 border-2 p-5 w-32 rounded-lg hover:bg-slate-100 focus:bg-slate-200">
+        <h1 class="text-2xl font-bold"><%= ticket.types[i].catagory %></h1>
+        <p class="mt-4">Price</p>
+        <h1 class="text-xl font-medium"><%= ticket.types[i].price %>TK</h1>
+      </button>
+      <div id="ticketInfo<%=i%>" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+        <div class="relative w-full max-w-2xl max-h-full">
+          <%- include('modals/ticketInfoModal.ejs',{types: ticket.types[i]}) %>
+        </div>
+      </div>
+      <% } %>
+    </div>
+
+  </div>
+</body>
+
+</html>
