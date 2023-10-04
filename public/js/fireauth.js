@@ -37,6 +37,10 @@ const logoutBtn = document.getElementById('logoutBtn');
 const logoutBtn2 = document.getElementById('logoutBtn2');
 const signupBtn = document.getElementById('signupBtn');
 
+const userLongName = document.getElementById('userLongName');
+const userShortName = document.getElementById('userShortName');
+const userEmail = document.getElementById('userEmail');
+
 logoutBtn2.addEventListener('click', () => {
     signOut(auth).then(() => {
         window.location.reload()
@@ -110,6 +114,26 @@ auth.onAuthStateChanged((user) => {
         signupBtn.classList.toggle("flex")
         logoutBtn.classList.toggle("hidden")
         logoutBtn.classList.toggle("flex")
+
+
+        axios.post('/userInfo', {
+            uid: user.uid
+        })
+            .then(function (response) {
+                let userData = response.data;
+                console.log(userData.fullname)
+                userLongName.innerText = userData.fullname
+                userShortName.innerText = userData.fullname
+                userEmail.innerText = userData.user.email;
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+
+        
+        // userShortName
+        // userEmail
+
         //const loginDiv = document.getElementById("loginDiv");
         //loginDiv.innerHTML = '<button class="flex items-center p-5 rounded-full border-2 border-white h-6" data-modal-target="authentication-modal" data-modal-toggle="authentication-modal"> <p class="text-white" id="loginButtonP">Log&nbsp;Out</p> </button>'
         // ...

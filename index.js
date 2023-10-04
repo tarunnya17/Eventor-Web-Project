@@ -9,7 +9,8 @@ const app = express();
 const mongoose = require('mongoose');
 const multer = require('multer');
 const { storage } = require("./cloudy")
-const { adminApp, orgApp } = require("./fireAdmin")
+const { adminApp, orgApp } = require("./fireAdmin");
+const { userInfo } = require("os");
 
 
 const upload = multer({ storage });
@@ -107,7 +108,12 @@ const binEvent = mongoose.model('deletedEventInfo', eventSchema);
 const ticketInfo = mongoose.model('ticketInfo', ticketScema);
 
 
-
+app.post('/userInfo', async (req,res)=> {
+    uid = req.body.uid;
+    console.log(uid)
+    const userInfo = await UsersInfo.findOne({ uid: uid });
+    res.send(userInfo)
+})
 
 
 app.get('/', async (req, res) => {
