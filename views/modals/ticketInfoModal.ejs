@@ -12,9 +12,13 @@
       <%  bg = 'bg-slate-200' %>
       <% act = '' %>
       <% } %>
-      <button class="<%= bg %> p-2 m-2 rounded-full whitespace-nowrap  w-15 h-15 text-xs" <%= act %>>
-        <%= types.tickets[j][k].sitId %>
-      </button>
+      <div name="ticketSelectorPDiv">
+        <input type="hidden" name="row" value="<%= j %>">
+        <input type="hidden" name="col" value="<%= k %>">
+        <button name="ticketSelectorButton" class="<%= bg %> p-2 m-2 rounded-full whitespace-nowrap  w-15 h-15 text-xs" <%= act %>>
+          <%= types.tickets[j][k].sitId %>
+        </button>
+      </div>
       <% } %>
     </div>
     <% } %>
