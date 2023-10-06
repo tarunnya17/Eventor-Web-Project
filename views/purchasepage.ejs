@@ -61,17 +61,19 @@
       <% for( let i = 0; i < ticket.types.length; i++ ) { %>
 
       <button name="catagorySelectorButton" data-modal-target="ticketInfo<%=i%>" data-modal-toggle="ticketInfo<%=i%>" class="border-slate-300 border-2 p-5 w-32 rounded-lg hover:bg-slate-100 focus:bg-slate-200">
-        <h1 class="text-2xl font-bold"><%= ticket.types[i].catagory %></h1>
+        <h1 class="text-2xl font-bold" name="catagoryName"><%= ticket.types[i].catagory %></h1>
         <p class="mt-4">Price</p>
-        <h1 class="text-xl font-medium"><%= ticket.types[i].price %>TK</h1>
+        <h1 class="text-xl font-medium" name="catagoryPrice"><%= ticket.types[i].price %>TK</h1>
       </button>
       <div id="ticketInfo<%=i%>" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
         <div class="relative w-full max-w-2xl max-h-full">
-          <%- include('modals/ticketInfoModal.ejs',{types: ticket.types[i]}) %>
+          <%- include('modals/ticketInfoModal.ejs',{types: ticket.types[i], index: i}) %>
         </div>
       </div>
       <% } %>
     </div>
+    <div id="selectedTicketDiv"></div>
+    <div class="bg-green-400"></div>
 
   </div>
   <script src="/js/selectTicketAndPost.js"></script>

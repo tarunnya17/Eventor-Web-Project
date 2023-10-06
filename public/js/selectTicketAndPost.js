@@ -1,29 +1,37 @@
 const catagorySelectorButtons = document.getElementsByName("catagorySelectorButton")
+const selectedTicketDiv = document.getElementById('selectedTicketDiv');
 const choosenTicketList = []
+const catagoryNameList = []
+const catagoryPriceList = []
 
 for (let i = 0; i < catagorySelectorButtons.length; i++) {
+    catagoryNameList[i] = catagorySelectorButtons[i].querySelector('h1[name="catagoryName"]').innerHTML
     choosenTicketList[i] = new Set()
-    catagorySelectorButtons[i].addEventListener('click', ()=> {
-        console.log(choosenTicketList)
-        callTicketSelector(i)
-    })
+    callTicketSelector(i)
 }
 
 function callTicketSelector (i) {
-    let ticketSelectorPDivs = document.getElementsByName("ticketSelectorPDiv")
+    const ticketSelectorPDivs = document.getElementsByName(`ticketSelectorPDiv-${i}`)
     ticketSelectorPDivs.forEach((ticketSelectorPDiv) => {
-        const rowValue = ticketSelectorPDiv.querySelector('input[name="row"]').value
-        const colValue = ticketSelectorPDiv.querySelector('input[name="col"]').value
-        const ticketSelectorButton = ticketSelectorPDiv.querySelector('button[name="ticketSelectorButton"]')
+        const rowValue = ticketSelectorPDiv.querySelector(`input[name="row-${i}"]`).value
+        const colValue = ticketSelectorPDiv.querySelector(`input[name="col-${i}"]`).value
+        const ticketSelectorButton = ticketSelectorPDiv.querySelector(`button[name="ticketSelectorButton-${i}"]`)
         ticketSelectorButton.addEventListener('click', ()=> {
             ticketSelectorButton.classList.toggle('bg-green-400')
-            if(choosenTicketList[i].has(`${rowValue}:${colValue}`)) {
-                console.log("choosenTicketList")
-                choosenTicketList[i].delete(`${rowValue}:${colValue}`)
+            ticketSelectorButton.classList.toggle('bg-slate-200')
+            if(choosenTicketList[i].has(`${rowValue}:${colValue}:${ticketSelectorButton.innerHTML.trim()}`)) {
+                console.log(`Removed ${rowValue}:${colValue}:${ticketSelectorButton.innerHTML.trim()}`)
+                choosenTicketList[i].delete(`${rowValue}:${colValue}:${ticketSelectorButton.innerHTML.trim()}`)
             }
             else {
-                choosenTicketList[i].add(`${rowValue}:${colValue}`)
+                console.log(`Added ${rowValue}:${colValue}:${ticketSelectorButton.innerHTML.trim()}`)
+                choosenTicketList[i].add(`${rowValue}:${colValue}:${ticketSelectorButton.innerHTML.trim()}`)
             }
         })
     })
 }
+
+function modifySelectedTicketDiv() {
+    
+}
+
