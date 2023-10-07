@@ -1,11 +1,21 @@
 const catagorySelectorButtons = document.getElementsByName("catagorySelectorButton")
+const closeButtons = document.getElementsByName("closeTicket")
 const selectedTicketDiv = document.getElementById('selectedTicketDiv');
 const choosenTicketList = []
 const catagoryNameList = []
 const catagoryPriceList = []
+const totalPrice = []
+let totalPriceAll = 0;
+
+closeButtons.forEach((c)=>{
+    c.addEventListener('click',()=> {
+        updateSelectedTicketDiv()
+    })
+})
 
 for (let i = 0; i < catagorySelectorButtons.length; i++) {
     catagoryNameList[i] = catagorySelectorButtons[i].querySelector('h1[name="catagoryName"]').innerHTML
+    catagoryPriceList[i] = catagorySelectorButtons[i].querySelector('h1[name="catagoryPrice"]').innerHTML
     choosenTicketList[i] = new Set()
     callTicketSelector(i)
 }
@@ -31,7 +41,14 @@ function callTicketSelector (i) {
     })
 }
 
-function modifySelectedTicketDiv() {
-    
+function updateSelectedTicketDiv() {
+    for (let i = 0; i < catagoryNameList.length; i++) {
+        totalPrice[i] =  parseInt(choosenTicketList[i].size) * parseInt(catagoryPriceList[i]);
+    }
+    totalPriceAll = 0
+    totalPrice.forEach((t)=> {
+        totalPriceAll += t;
+    })
+    selectedTicketDiv.innerHTML = totalPriceAll
 }
 
