@@ -11,11 +11,14 @@ const multer = require('multer');
 const { storage } = require("./cloudy")
 const { adminApp, orgApp } = require("./fireAdmin");
 const { userInfo } = require("os");
+const { v4: uuidv4 } = require('uuid');
+const SSLCommerzPayment = require('sslcommerz-lts')
 
 
 const upload = multer({ storage });
 const uploadLocal = multer({ dest: './public/data/uploads/' })
 
+const stripe = require('stripe')(process.env.SK_TEST);
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
@@ -43,6 +46,29 @@ const usersInfoSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+});
+
+
+app.post('/create-checkout-session', async (req, res) => {
+    const session = await stripe.checkout.sessions.create({
+        line_items: [
+            {
+                price_data: {
+                    currency: "usd",
+                    unit_amount: 500,
+                    product_data: {
+                        name: "name of the product",
+                    },
+                },
+                quantity: 1,
+            },
+        ],
+        mode: 'payment',
+        success_url: `${process.env.ROOT}/success.html`,
+        cancel_url: `${process.env.ROOT}/cancel.html`,
+    });
+
+    res.redirect(303, session.url);
 });
 
 const eventSchema = new mongoose.Schema({
@@ -108,7 +134,7 @@ const binEvent = mongoose.model('deletedEventInfo', eventSchema);
 const ticketInfo = mongoose.model('ticketInfo', ticketScema);
 
 
-app.post('/userInfo', async (req,res)=> {
+app.post('/userInfo', async (req, res) => {
     uid = req.body.uid;
     console.log(uid)
     const userInfo = await UsersInfo.findOne({ uid: uid });
@@ -136,7 +162,7 @@ app.get('/event/:eventID', async (req, res) => {
     const eventObj = new mongoose.Types.ObjectId(eventId);
     const eventData = await Event.findById(eventObj);
     console.log(eventData)
-    res.render("eventpage", {eventData})
+    res.render("eventpage", { eventData })
 })
 
 app.get('/event/purchase/:eventID', async (req, res) => {
@@ -144,7 +170,7 @@ app.get('/event/purchase/:eventID', async (req, res) => {
     const eventObj = new mongoose.Types.ObjectId(eventId);
     const eventData = await Event.findById(eventObj);
     console.log(eventData)
-    res.render("purchasepage", {eventData});
+    res.render("purchasepage", { eventData });
 })
 
 app.get('/create-event', async (req, res) => {
@@ -300,9 +326,11 @@ app.post('/create-event', upload.any(), async (req, res) => {
         const images = req.files.map(f => ({ url: f.path, filename: f.filename }))
         const tId = new mongoose.Types.ObjectId(req.body.ticket_type)
         const ticketOne = await ticketInfo.findById(tId)
-        const {title, types} = ticketOne
-        const ticket = {title: title,
-                        types: types}
+        const { title, types } = ticketOne
+        const ticket = {
+            title: title,
+            types: types
+        }
         console.log(images[0])
         const eventData = {
             uid: "a100",
@@ -489,6 +517,105 @@ app.post('/org/create-ticket', (req, res) => {
         })
 });
 
+
+const store_id = process.env.SSL_STORE_ID
+const store_passwd = process.env.SSL_STORE_PASS
+const is_live = false
+
+app.post('/init-payment', (req, res) => {
+    const { totalPrice, id, ticketList } = req.body;
+    console.log(totalPrice)
+    const data = {
+        total_amount: parseInt(totalPrice),
+        currency: 'BDT',
+        tran_id: uuidv4(),
+        success_url: `http://localhost:3000/payment-success?id=${id}&${ticketList}`,
+        fail_url: 'http://localhost:3000/payment-fail',
+        cancel_url: 'http://localhost:3000/payment-cancel',
+        ipn_url: 'http://localhost:3000/payment-ipn',
+        shipping_method: 'Email',
+        product_name: id,
+        product_category: 'Ticket',
+        product_profile: 'general',
+        cus_name: 'Customer Name',
+        cus_email: 'customer@example.com',
+        cus_add1: 'Dhaka',
+        cus_add2: 'Dhaka',
+        cus_city: 'Dhaka',
+        cus_state: 'Dhaka',
+        cus_postcode: '1000',
+        cus_country: 'Bangladesh',
+        cus_phone: '01711111111',
+        cus_fax: '01711111111',
+        ship_name: 'Customer Name',
+        ship_add1: 'Dhaka',
+        ship_add2: 'Dhaka',
+        ship_city: 'Dhaka',
+        ship_state: 'Dhaka',
+        ship_postcode: 1000,
+        ship_country: 'Bangladesh',
+    };
+    const sslcz = new SSLCommerzPayment(store_id, store_passwd, is_live)
+    sslcz.init(data).then(apiResponse => {
+        // Redirect the user to payment gateway
+        let GatewayPageURL = apiResponse.GatewayPageURL
+        res.redirect(GatewayPageURL)
+        console.log('Redirecting to: ', GatewayPageURL)
+    });
+})
+
+app.post('/payment-cancel', (req, res) => {
+    console.log(req.body)
+    res.send("Canceled!")
+})
+
+app.post('/payment-success/', async (req, res) => {
+    const id = req.query.id
+    const cat = req.query.cat
+    const paramObject = []
+    ticketList = cat.forEach((value, key) => {
+        if (value === '') {
+            paramObject[key] = [];
+        } else {
+            paramObject[key] = value.split(',');
+        }
+    });
+    const modifiedArray = paramObject.map((subArray) => {
+        return subArray.map((str) => {
+            const parts = str.split('@');
+            return parts[0]; // Keep only the part before the '@' symbol
+        });
+    });
+    ObjID = new mongoose.Types.ObjectId(id)
+    for (let i = 0; i < modifiedArray.length; i++) {
+        for (let j = 0; j < modifiedArray[i].length; j++) {
+            const x = parseInt(modifiedArray[i][j].split(':')[0])
+            const y = parseInt(modifiedArray[i][j].split(':')[1])
+            const result = await Event.updateOne(
+                { "_id": ObjID },
+                {
+                    "$set": {
+                        //q: false
+                        [`ticket.types.${i}.tickets.${x}.${y}.Available`]: false
+                    }
+                }
+            )
+            console.log(result.modifiedCount)
+        }
+    }
+
+    res.send("Success")
+})
+
+app.post('/payment-fail', (req, res) => {
+    console.log(req.body)
+    res.send("Failed!")
+})
+
+app.post('/payment-ipn', (req, res) => {
+    console.log(req.body)
+    res.send("Ipn")
+})
 
 app.use((err, req, res, next) => {
     console.error(err.stack);

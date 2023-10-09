@@ -1,10 +1,14 @@
 const catagorySelectorButtons = document.getElementsByName("catagorySelectorButton")
 const closeButtons = document.getElementsByName("closeTicket")
 const selectedTicketDiv = document.getElementById('selectedTicketDiv');
+const confirmButton = document.getElementById('confirmButton');
+const totalPriceField = document.getElementById('totalPriceField');
+const ticketListField = document.getElementById('ticketListField');
 const choosenTicketList = []
 const catagoryNameList = []
 const catagoryPriceList = []
 const totalPrice = []
+let ticketListValue;
 let totalPriceAll = 0;
 
 closeButtons.forEach((c)=>{
@@ -29,17 +33,30 @@ function callTicketSelector (i) {
         ticketSelectorButton.addEventListener('click', ()=> {
             ticketSelectorButton.classList.toggle('bg-green-400')
             ticketSelectorButton.classList.toggle('bg-slate-200')
-            if(choosenTicketList[i].has(`${rowValue}:${colValue}:${ticketSelectorButton.innerHTML.trim()}`)) {
-                console.log(`Removed ${rowValue}:${colValue}:${ticketSelectorButton.innerHTML.trim()}`)
-                choosenTicketList[i].delete(`${rowValue}:${colValue}:${ticketSelectorButton.innerHTML.trim()}`)
+            if(choosenTicketList[i].has(`${rowValue}:${colValue}@${ticketSelectorButton.innerHTML.trim()}`)) {
+                console.log(`Removed ${rowValue}:${colValue}@${ticketSelectorButton.innerHTML.trim()}`)
+                choosenTicketList[i].delete(`${rowValue}:${colValue}@${ticketSelectorButton.innerHTML.trim()}`)
             }
             else {
-                console.log(`Added ${rowValue}:${colValue}:${ticketSelectorButton.innerHTML.trim()}`)
-                choosenTicketList[i].add(`${rowValue}:${colValue}:${ticketSelectorButton.innerHTML.trim()}`)
+                console.log(`Added ${rowValue}:${colValue}@${ticketSelectorButton.innerHTML.trim()}`)
+                choosenTicketList[i].add(`${rowValue}:${colValue}@${ticketSelectorButton.innerHTML.trim()}`)
             }
         })
     })
 }
+
+function setsToNamedRequestParams(sets) {
+    const paramStrings = [];
+  
+    sets.forEach((set, index) => {
+      const setArray = Array.from(set);
+      const paramString = setArray.join(',');
+      const paramName = `cat[${index}]`;
+      paramStrings.push(`${paramName}=${paramString}`);
+    });
+  
+    return paramStrings.join('&');
+  }
 
 function updateSelectedTicketDiv() {
     for (let i = 0; i < catagoryNameList.length; i++) {
@@ -50,5 +67,13 @@ function updateSelectedTicketDiv() {
         totalPriceAll += t;
     })
     selectedTicketDiv.innerHTML = totalPriceAll
+    totalPriceField.value = totalPriceAll
+    ticketListValue = setsToNamedRequestParams(choosenTicketList)
+    ticketListField.value = ticketListValue
+    if(totalPriceAll <= 0){
+        confirmButton.setAttribute('disabled', '')
+    }
+    else {
+        confirmButton.removeAttribute('disabled')
+    }
 }
-
