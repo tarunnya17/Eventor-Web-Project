@@ -44,9 +44,14 @@
               </svg>
               <span class="sr-only">Search icon</span>
             </div>
-            <input type="text" id="search-navbar"
+            <form action="/search" method="post">
+              <input type="text" name="search_key" id="search-navbar"
               class="block w-full p-5 h-6 pl-10 text-sm text-white focus:text-gray-900 placeholder-white border-2  border-white rounded-full bg-transparent focus:ring-transparent"
               placeholder="Search...">
+              <input type="hidden" name="location_key" value="">
+
+            </form>
+            
           </div>
           <button data-collapse-toggle="navbar-search" type="button"
             class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"

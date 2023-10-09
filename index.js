@@ -617,6 +617,26 @@ app.post('/payment-ipn', (req, res) => {
     res.send("Ipn")
 })
 
+app.get('/search', async (req,res)=> {
+    console.log(req.body)
+    const EventData = await Event.find({});
+    res.render('searchPage', {EventData})
+})
+
+app.post('/search', async (req,res)=> {
+    console.log(req.body)
+    key = req.body.search_key
+    location = req.body.location_key
+    //event_title: {$regex: key}
+    const EventData = await Event.find({
+        $and: [
+            {event_title: {$regex: key}},
+            {venue: {$regex: location}}
+        ]
+    });
+    res.render('searchPage', {EventData})
+})
+
 app.use((err, req, res, next) => {
     console.error(err.stack);
     res.status(500).send('Something broke!');
